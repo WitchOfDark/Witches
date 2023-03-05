@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
-import 'package:darkknight/debug_functions.dart';
-import 'package:darkknight/utils.dart';
+import 'package:tamannaah/darkknight/debug_functions.dart';
+import 'package:tamannaah/darkknight/utils.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:inferno/fire_service.dart';
 
-import 'package:darkknight/debug_functions.dart';
+import 'package:tamannaah/darkknight/debug_functions.dart';
 
 typedef CloudListRef = List<Reference>;
 

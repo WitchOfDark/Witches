@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:darkknight/debug_functions.dart';
+import 'package:tamannaah/darkknight/debug_functions.dart';
 
 enum Role {
   gamer,

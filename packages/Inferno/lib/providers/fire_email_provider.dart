@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 
-import 'package:darkknight/error/fire_error.dart';
+import 'package:tamannaah/darkknight/error/fire_error.dart';
 
 import '../fire_service.dart';
 import '../inferno_error.dart';

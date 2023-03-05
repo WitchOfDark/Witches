@@ -16,8 +16,8 @@ dependencies:
   firebase_core: ^2.1.1
   firebase_app_check: ^0.1.1+6
 
-  darkknight:
-    path: ../DarkKnight
+  tamannaah:
+    path: ../Tamannaah
 
 dev_dependencies:
   flutter_test:

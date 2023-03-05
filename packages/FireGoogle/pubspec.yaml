@@ -16,8 +16,6 @@ dependencies:
   google_sign_in: ^5.4.2
   firebase_auth: ^4.1.0
 
-  darkknight:
-    path: ../DarkKnight
   inferno:
     path: ../Inferno
 

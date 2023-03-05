@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
-import 'package:darkknight/utils.dart';
-import 'package:darkknight/debug_functions.dart';
+import 'package:tamannaah/darkknight/utils.dart';
+import 'package:tamannaah/darkknight/debug_functions.dart';
 
 class GridController<T> {
   String search;

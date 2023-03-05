@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:darkknight/utils.dart';
+import 'package:tamannaah/darkknight/utils.dart';
 
 import 'rainbow.dart';
 

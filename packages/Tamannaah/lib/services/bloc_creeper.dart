@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:darkknight/debug_functions.dart';
+import 'package:tamannaah/darkknight/debug_functions.dart';
 
 class Creeper extends BlocObserver {
   // @override

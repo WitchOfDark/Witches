@@ -13,8 +13,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  darkknight:
-    path: ../DarkKnight
+  tamannaah:
+    path: ../Tamannaah
 
 dev_dependencies:
   flutter_test:

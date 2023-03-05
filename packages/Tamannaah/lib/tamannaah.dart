@@ -3,10 +3,10 @@ library tamannaah;
 
 import 'dart:async';
 
-import 'package:darkknight/bloc_service.dart';
-import 'package:darkknight/debug_functions.dart';
-import 'package:darkknight/extensions/build_context.dart';
-import 'package:darkknight/utils.dart';
+import 'package:tamannaah/darkknight/bloc_service.dart';
+import 'package:tamannaah/darkknight/debug_functions.dart';
+import 'package:tamannaah/darkknight/extensions/build_context.dart';
+import 'package:tamannaah/darkknight/utils.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

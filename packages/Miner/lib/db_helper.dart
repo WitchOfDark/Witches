@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:hive/hive.dart';
 import 'package:isar/isar.dart';
 
-import 'package:darkknight/bloc_service.dart';
+import 'package:tamannaah/darkknight/bloc_service.dart';
 import 'package:tamannaah/services/settings/settings_bloc.dart';
 
 abstract class DbHelp implements ToWidget, ToMap {}

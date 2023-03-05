@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:flutter_web_plugins/url_strategy.dart';
 
-import 'package:darkknight/debug_functions.dart';
+import 'package:tamannaah/darkknight/debug_functions.dart';
 
 import 'special/error404.dart';
 

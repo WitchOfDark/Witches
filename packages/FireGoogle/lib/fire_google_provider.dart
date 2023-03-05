@@ -1,9 +1,9 @@
-import 'package:darkknight/debug_functions.dart';
+import 'package:tamannaah/darkknight/debug_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth, GoogleAuthProvider, UserCredential;
 
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:darkknight/error/fire_error.dart';
+import 'package:tamannaah/darkknight/error/fire_error.dart';
 
 import 'package:inferno/fire_service.dart';
 import 'package:inferno/inferno_error.dart';

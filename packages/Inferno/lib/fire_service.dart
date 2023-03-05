@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 
-import 'package:darkknight/bloc_service.dart';
-import 'package:darkknight/debug_functions.dart';
+import 'package:tamannaah/darkknight/bloc_service.dart';
+import 'package:tamannaah/darkknight/debug_functions.dart';
 
 import 'bloc/fire_auth_bloc.dart';
 
-import 'package:darkknight/error/fire_error.dart';
+import 'package:tamannaah/darkknight/error/fire_error.dart';
 
 import 'fire_user.dart';
 import 'inferno_error.dart';

@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:darkknight/debug_functions.dart';
+import 'package:tamannaah/darkknight/debug_functions.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart' show immutable;
 
-import 'package:darkknight/error/fire_error.dart';
+import 'package:tamannaah/darkknight/error/fire_error.dart';
 
 import '../fire_service.dart';
 import '../fire_user.dart';

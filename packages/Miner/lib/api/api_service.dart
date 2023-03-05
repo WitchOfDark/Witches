@@ -5,9 +5,9 @@ import 'dart:io';
 import 'dart:math';
 
 // import 'package:dio/dio.dart';
-import 'package:darkknight/debug_functions.dart';
-import 'package:darkknight/extensions/build_context.dart';
-import 'package:darkknight/utils.dart';
+import 'package:tamannaah/darkknight/debug_functions.dart';
+import 'package:tamannaah/darkknight/extensions/build_context.dart';
+import 'package:tamannaah/darkknight/utils.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
