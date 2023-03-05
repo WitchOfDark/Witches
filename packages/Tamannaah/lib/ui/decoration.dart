@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../tools/utils.dart';
+import 'package:darkknight/utils.dart';
 
 import 'rainbow.dart';
 
@@ -165,8 +165,7 @@ class Deco {
     this.fto,
     this.F,
   }) {
-    assert((accent < Grain.maxAccent && accent >= 0) &&
-        ((inv ?? 0) < Grain.maxAccent && (inv ?? 0) >= 0));
+    assert((accent < Grain.maxAccent && accent >= 0) && ((inv ?? 0) < Grain.maxAccent && (inv ?? 0) >= 0));
 
     int _ltrb = ltrb;
     if (brR != null) {
@@ -265,7 +264,7 @@ class Deco {
     };
 
     return {
-      'Deco': maptoJson(map, removeNull : true),
+      'Deco': maptoJson(map, removeNull: true),
     };
   }
 

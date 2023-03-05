@@ -1,8 +1,8 @@
+import 'package:darkknight/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:provider/provider.dart';
 
-import '../../tools/utils.dart';
 import '../../ui/custom/circle_color_picker.dart';
 import '../../ui/rainbow.dart';
 
@@ -57,8 +57,7 @@ class _ColorEditorState extends State<ColorEditor> {
     });
     final state = context.read<DevicePreviewStore>();
 
-    state.data =
-        state.data.copyWith(textScaleFactor: (state.data.textScaleFactor + (add ? .001 : -.001)));
+    state.data = state.data.copyWith(textScaleFactor: (state.data.textScaleFactor + (add ? .001 : -.001)));
   }
 
   @override
@@ -67,7 +66,7 @@ class _ColorEditorState extends State<ColorEditor> {
       title: 'Color Editor',
       children: [
         ListTile(
-          title: Text('Randomize'),
+          title: const Text('Randomize'),
           onTap: () {
             final state = context.read<DevicePreviewStore>();
 
@@ -90,8 +89,7 @@ class _ColorEditorState extends State<ColorEditor> {
               add = !add;
             });
 
-            state.data = state.data
-                .copyWith(textScaleFactor: (state.data.textScaleFactor + (add ? .001 : -.001)));
+            state.data = state.data.copyWith(textScaleFactor: (state.data.textScaleFactor + (add ? .001 : -.001)));
           },
         ),
         Padding(
@@ -110,11 +108,7 @@ class _ColorEditorState extends State<ColorEditor> {
 
 class ColorDebugger extends StatelessWidget {
   const ColorDebugger(
-      {required this.debugy,
-      required this.redebugy,
-      required this.colorName,
-      required this.controller,
-      Key? key})
+      {required this.debugy, required this.redebugy, required this.colorName, required this.controller, Key? key})
       : super(key: key);
 
   final void Function(String) debugy;
@@ -125,7 +119,7 @@ class ColorDebugger extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return box(
-      deco: Deco(0, B: Color.fromARGB(255, 240, 240, 240)),
+      deco: Deco(0, B: const Color.fromARGB(255, 240, 240, 240)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -188,7 +182,7 @@ class ColorDebugger extends StatelessWidget {
             ),
           ),
           CircleColor(
-            size: Size(200, 200),
+            size: const Size(200, 200),
             controller: controller,
             // colorCodeBuilder: ((context, color) {
             //   return Tx('');

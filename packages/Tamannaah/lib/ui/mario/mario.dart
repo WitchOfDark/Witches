@@ -6,10 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'dart:math' show min;
 
 import '../../forms/form_lion.dart';
-import '../../forms/orca_field.dart';
 import '../../forms/v3_grow.dart';
-import '../../tools/extensions/build_context.dart';
-import '../../tools/utils.dart';
+
+import 'package:darkknight/utils.dart';
+import 'package:darkknight/extensions/build_context.dart';
+
 import '../d_theme.dart';
 import '../decoration.dart';
 import '../lego.dart';
@@ -19,8 +20,6 @@ import 'package:http/http.dart' as http;
 
 Widget popupMenu(List<Lego?> btns, {Widget? child, Deco? deco}) {
   return PopupMenuButton<int>(
-    child: child,
-    // tooltip: 'tooltip',
     icon: child == null ? const Icon(Icons.more_vert) : null,
     iconSize: 20,
     padding: e0,
@@ -29,22 +28,22 @@ Widget popupMenu(List<Lego?> btns, {Widget? child, Deco? deco}) {
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     itemBuilder: (context) {
       final List<PopupMenuEntry<int>> hello = [
-        PopupMenuItem<int>(
+        const PopupMenuItem<int>(
           value: 0,
           child: Text('Settings'),
         ),
-        PopupMenuDivider(),
-        PopupMenuItem<int>(
+        const PopupMenuDivider(),
+        const PopupMenuItem<int>(
           value: 1,
           child: Text('Share'),
         ),
-        PopupMenuDivider(),
+        const PopupMenuDivider(),
         PopupMenuItem<int>(
           value: 2,
           child: Row(
-            children: [
+            children: const [
               Icon(Icons.logout),
-              const SizedBox(width: 8),
+              SizedBox(width: 8),
               Text('Sign Out'),
             ],
           ),
@@ -60,8 +59,8 @@ Widget popupMenu(List<Lego?> btns, {Widget? child, Deco? deco}) {
                         value: e.key,
                         child: e.value?.popup(),
                       )
-                    : PopupMenuDivider())) ??
-                PopupMenuDivider(),
+                    : const PopupMenuDivider())) ??
+                const PopupMenuDivider(),
           )
           .toList();
 
@@ -70,6 +69,7 @@ Widget popupMenu(List<Lego?> btns, {Widget? child, Deco? deco}) {
     onSelected: (value) {
       (btns[value]?.fn ?? () {})();
     },
+    child: child,
   );
 }
 
@@ -112,7 +112,7 @@ void marioBar({
           ),
           const Spacer(),
           ...?actions,
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           if (close)
             icoBtn(Icons.close, () {
               ScaffoldMessenger.of(context).clearSnackBars();
@@ -161,14 +161,14 @@ void marioBanner({
   );
 }
 
-void rootPop(BuildContext context) {
-  Navigator.of(context).popUntil((route) {
-    print(ModalRoute.of(context)?.settings);
-    print(route.settings.name);
-    return true;
-    return route.settings.name == '/';
-  });
-}
+// void rootPop(BuildContext context) {
+//   Navigator.of(context).popUntil((route) {
+//     print(ModalRoute.of(context)?.settings);
+//     print(route.settings.name);
+//     return true;
+//     return route.settings.name == '/';
+//   });
+// }
 
 Future<T?> marioActionSheet<T>({
   required BuildContext context,
@@ -198,36 +198,30 @@ Future<T?> marioActionSheet<T>({
 Future<T?> marioSheet<T>({
   required BuildContext context,
   required List<Widget> children,
-  final Widget? close,
   required Deco deco,
+  Future<bool> Function()? onWillPop,
 }) async {
   return await showModalBottomSheet<T>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     builder: (context) {
-      return box(
-        deco: deco.cp(W: deco.W ?? 300, H: deco.H ?? 300),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: 3,
-                width: 30,
-                margin: e8,
-                color: Colors.grey[300],
-              ),
-              ...children,
-              const Divider(indent: 20, endIndent: 20),
-              close ??
-                  txbtn(
-                    'Close',
-                    deco: dIos.cp(F: Colors.blue, elv: 0),
-                    fn: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-            ],
+      return WillPopScope(
+        onWillPop: onWillPop,
+        child: box(
+          deco: deco.cp(W: deco.W ?? 300, H: deco.H ?? 300),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  height: 3,
+                  width: 30,
+                  margin: e8,
+                  color: Colors.grey[300],
+                ),
+                ...children,
+              ],
+            ),
           ),
         ),
       );
@@ -238,29 +232,24 @@ Future<T?> marioSheet<T>({
 Future<T?> marioDialog<T>({
   required BuildContext context,
   required List<Widget> children,
-  final Widget? close,
   required Deco deco,
+  Future<bool> Function()? onWillPop,
 }) {
   return showDialog<T>(
     context: context,
     builder: (BuildContext context) {
-      return Dialog(
-        shape: RoundedRectangleBorder(borderRadius: brR_a_10),
-        child: box(
-          deco: deco.cp(W: deco.W ?? 300, H: deco.H ?? 300),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ...children,
-                close ??
-                    txbtn(
-                      'Close',
-                      deco: dIos.cp(F: Colors.blue, elv: 0),
-                      fn: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-              ],
+      return WillPopScope(
+        onWillPop: onWillPop,
+        child: Dialog(
+          shape: RoundedRectangleBorder(borderRadius: brR_a_10),
+          child: box(
+            deco: deco.cp(W: deco.W ?? 300, H: deco.H ?? 300),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ...children,
+                ],
+              ),
             ),
           ),
         ),
@@ -276,34 +265,40 @@ Future<Map<String, dynamic>?> showLionDialog({
   final LionFormKey? leoKey,
   Map<String, dynamic>? initValue,
   final Function(Map<String, dynamic>? value)? submitFn,
+  Future<bool> Function()? onWillPop,
 }) async {
   final formkey = lionKey();
 
   return await showDialog<Map<String, dynamic>?>(
     context: context,
     builder: (context) {
-      return Dialog(
-        child: box(
-          deco: deco.cp(W: deco.W ?? 300, H: deco.H ?? 300),
-          child: LionForm(
-            key: leoKey ?? Key(randomString(5)),
-            formKey: formkey,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  orcaBuilder(formkey, initValue),
-                  Lego(
-                    deco: dBtn8,
-                    name: 'Submit',
-                    fn: () async {
-                      if (submitFn != null) {
-                        await submitFn(formkey.value());
-                      }
-                      Navigator.pop(context, formkey.value());
-                    },
-                  ).txBtn(),
-                ],
+      return WillPopScope(
+        onWillPop: onWillPop,
+        child: Dialog(
+          child: box(
+            deco: deco.cp(W: deco.W ?? 300, H: deco.H ?? 300),
+            child: LionForm(
+              key: leoKey ?? Key(randomString(5)),
+              formKey: formkey,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    orcaBuilder(formkey, initValue),
+                    txbtn(
+                      'Submit',
+                      deco: dBtn8,
+                      fn: () async {
+                        if (submitFn != null) {
+                          await submitFn(formkey.value());
+                        }
+                        if (context.mounted) {
+                          Navigator.pop(context, formkey.value());
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -384,8 +379,8 @@ Future<bool> showDeleteDialog(BuildContext context) {
     title: 'Delete',
     content: 'Are you sure you want to delete this item?',
     actions: [
-      Lego(name: 'Cancel', fn: (() => Navigator.pop(context, false))).txBtn(),
-      Lego(name: 'Yes', fn: (() => Navigator.pop(context, true))).txBtn(),
+      txbtn('Cancel', fn: (() => Navigator.pop(context, false))),
+      txbtn('Yes', fn: (() => Navigator.pop(context, true))),
     ],
     deco: dError,
   ).then((value) => value ?? false);
@@ -397,8 +392,8 @@ Future<bool> showLogOutDialog(BuildContext context) {
     title: 'Log out',
     content: 'Are you sure you want to log out?',
     actions: [
-      Lego(name: 'Cancel', fn: (() => Navigator.pop(context, false))).txBtn(),
-      Lego(name: 'Log out', fn: (() => Navigator.pop(context, true))).txBtn(),
+      txbtn('Cancel', fn: (() => Navigator.pop(context, false))),
+      txbtn('Log out', fn: (() => Navigator.pop(context, true))),
     ],
     deco: dError,
   ).then((value) => value ?? false);
@@ -410,7 +405,7 @@ Future<void> showPasswordResetSentDialog(BuildContext context) {
     title: 'Password Reset',
     content: 'We have now sent you a password reset link. Please check your email for more information',
     actions: [
-      Lego(name: 'Ok', fn: (() => Navigator.pop(context))).txBtn(),
+      txbtn('Ok', fn: (() => Navigator.pop(context))),
     ],
     deco: dError,
   );
@@ -422,8 +417,8 @@ Future<bool> showDeleteAccountDialog(BuildContext context) {
     title: 'Delete account',
     content: 'Are you sure you want to delete your account? You cannot undo this operation!',
     actions: [
-      Lego(name: 'Cancel', fn: (() => Navigator.pop(context, false))).txBtn(),
-      Lego(name: 'Delete account', fn: (() => Navigator.pop(context, true))).txBtn(),
+      txbtn('Cancel', fn: (() => Navigator.pop(context, false))),
+      txbtn('Delete account', fn: (() => Navigator.pop(context, true))),
     ],
     deco: dError,
   ).then(
@@ -446,7 +441,7 @@ class MySearchDelegate extends SearchDelegate {
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: const Icon(Icons.clear),
         onPressed: () {
           if (query.isEmpty) {
             close(context, null);
@@ -455,7 +450,7 @@ class MySearchDelegate extends SearchDelegate {
         },
       ),
       IconButton(
-        icon: Icon(Icons.translate),
+        icon: const Icon(Icons.translate),
         onPressed: () {},
       ),
     ];
@@ -464,7 +459,7 @@ class MySearchDelegate extends SearchDelegate {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back),
       onPressed: () {
         close(context, null);
       },
@@ -511,7 +506,7 @@ class MySearchDelegate extends SearchDelegate {
                   ),
                 );
               } else {
-                return Text("Nothing");
+                return const Text("Nothing");
               }
             },
           ),
@@ -638,7 +633,7 @@ class LoadingScreen {
       },
     );
 
-    state?.insert(overlay);
+    state.insert(overlay);
 
     return LoadingScreenController(
       close: () {
@@ -655,8 +650,8 @@ class LoadingScreen {
 }
 
 Widget contextIosMenu(BuildContext context, Widget child, List<Lego> btns) {
-  return CupertinoContextMenu(
-    previewBuilder: (context, animation, child) {
+  return CupertinoContextMenu.builder(
+    builder: (context, animation) {
       return Material(
         child: SizedBox.expand(
           child: box(
@@ -679,7 +674,7 @@ Widget contextIosMenu(BuildContext context, Widget child, List<Lego> btns) {
           trailingIcon: e.icon,
           isDefaultAction: true,
           onPressed: e.fn,
-          child: tx(e.name),
+          child: tx(e.name ?? ''),
         ),
       ),
       CupertinoContextMenuAction(
@@ -691,7 +686,6 @@ Widget contextIosMenu(BuildContext context, Widget child, List<Lego> btns) {
         child: tx('Close'),
       ),
     ],
-    child: child,
   );
 }
 
@@ -769,15 +763,15 @@ class ContextOverlay {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: btns
                           .map(
-                            (e) => Lego(
+                            (e) => txbtn(
+                              e.name ?? '',
                               deco: e.deco,
-                              name: e.name,
-                              icon: e.icon,
+                              // icon: e.icon,
                               fn: () {
                                 if (e.fn != null) (e.fn ?? () {})();
                                 ContextOverlay().hide();
                               },
-                            ).txBtn(),
+                            ),
                           )
                           .toList(),
                       // children: btns.fold(
@@ -812,7 +806,7 @@ class ContextOverlay {
     );
 
     if (btns.isNotEmpty) {
-      state?.insert(overlay);
+      state.insert(overlay);
     }
 
     return LoadingScreenController(

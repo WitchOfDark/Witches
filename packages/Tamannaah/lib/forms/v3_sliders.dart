@@ -26,12 +26,11 @@ Widget v3Slider({
     builder: ((field) {
       return SliderTheme(
         data: SliderThemeData(
-          trackHeight: deco.W ?? 2,
+          trackHeight: deco.H ?? 2,
           showValueIndicator: ShowValueIndicator.always,
           overlayColor: deco.hS.withAlpha(100),
           thumbColor: deco.hS,
-          thumbShape:
-              RoundSliderThumbShape(enabledThumbRadius: deco.fs ?? 8, elevation: deco.elv ?? 5),
+          thumbShape: RoundSliderThumbShape(enabledThumbRadius: deco.fs ?? 8, elevation: deco.elv ?? 5),
           activeTrackColor: deco.hS,
           inactiveTrackColor: deco.hF,
           valueIndicatorColor: deco.hB,
@@ -44,7 +43,7 @@ Widget v3Slider({
           min: min,
           max: max,
           divisions: div != 0 ? div * ((max - min) ~/ 1) : null,
-          label: field.value.toString(),
+          label: field.value?.toStringAsPrecision(2),
           onChanged: ((value) {
             if (enabled) {
               field.didChange(value);
@@ -78,10 +77,8 @@ Widget v3Range({
           showValueIndicator: ShowValueIndicator.always,
           overlayColor: deco.hS.withAlpha(100),
           thumbColor: deco.hS,
-          rangeThumbShape: RoundRangeSliderThumbShape(
-              enabledThumbRadius: deco.fs ?? 8, elevation: deco.elv ?? 5),
-          thumbShape:
-              RoundSliderThumbShape(enabledThumbRadius: deco.fs ?? 8, elevation: deco.elv ?? 5),
+          rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: deco.fs ?? 8, elevation: deco.elv ?? 5),
+          thumbShape: RoundSliderThumbShape(enabledThumbRadius: deco.fs ?? 8, elevation: deco.elv ?? 5),
           activeTrackColor: deco.hS,
           inactiveTrackColor: deco.hF,
           valueIndicatorColor: deco.hB,
@@ -96,13 +93,8 @@ Widget v3Range({
           divisions: div != 0 ? div * ((max - min) ~/ 1) : null,
           // displayValues: DisplayValues.none,
           // decoration: InputDecoration.collapsed(hintText: hint),
-          labels: RangeLabels(
-              field.value?.start.round().toString() ??
-                  initialValue?.start.toString() ??
-                  min.toString(),
-              field.value?.end.round().toString() ??
-                  initialValue?.end.toString() ??
-                  max.toString()),
+          labels: RangeLabels(field.value?.start.round().toString() ?? initialValue?.start.toString() ?? min.toString(),
+              field.value?.end.round().toString() ?? initialValue?.end.toString() ?? max.toString()),
           onChanged: (value) {
             if (enabled) {
               field.didChange(value);
@@ -138,8 +130,7 @@ Widget v3Ratings({
 }) {
   Deco deco = (d ?? dRating10);
   deco = deco.cp(W: deco.W ?? 200);
-  double ratings =
-      normalize(min, /*cast<double>(formKey?.get<double>(name)) ??*/ initialValue ?? 0, max);
+  double ratings = normalize(min, /*cast<double>(formKey?.get<double>(name)) ??*/ initialValue ?? 0, max);
 
   return Container(
     padding: deco.pad,

@@ -44,7 +44,7 @@ class AddTodoButton extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      FlutterLogo(),
+                      const FlutterLogo(),
                       const TextField(
                         decoration: InputDecoration(
                           hintText: 'New todo',
@@ -74,6 +74,27 @@ class AddTodoButton extends StatelessWidget {
           );
         },
         child: Hero(
+          // flightShuttleBuilder: (flightContext, animation, flightDirection, fromHeroContext, toHeroContext) {
+          //   switch (flightDirection) {
+          //     case HeroFlightDirection.push:
+          //       return ScaleTransition(
+          //         scale: animation.drive(
+          //           Tween<double>(
+          //             begin: 0.0,
+          //             end: 1.0,
+          //           ).chain(
+          //             CurveTween(
+          //               curve: Curves.fastOutSlowIn,
+          //             ),
+          //           ),
+          //         ),
+          //         child: toHeroContext.widget,
+          //       );
+          //     case HeroFlightDirection.pop:
+          //       return fromHeroContext.widget;
+          //     // default:
+          //   }
+          // },
           tag: _heroAddTodo,
           createRectTween: (begin, end) {
             return CustomRectTween(begin: begin!, end: end!);
@@ -105,6 +126,27 @@ class _AddTodoPopupCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(32.0),
         child: Hero(
+          // flightShuttleBuilder: (flightContext, animation, flightDirection, fromHeroContext, toHeroContext) {
+          //   switch (flightDirection) {
+          //     case HeroFlightDirection.push:
+          //       return ScaleTransition(
+          //         scale: animation.drive(
+          //           Tween<double>(
+          //             begin: 0.0,
+          //             end: 1.0,
+          //           ).chain(
+          //             CurveTween(
+          //               curve: Curves.fastOutSlowIn,
+          //             ),
+          //           ),
+          //         ),
+          //         child: toHeroContext.widget,
+          //       );
+          //     case HeroFlightDirection.pop:
+          //       return fromHeroContext.widget;
+          //     // default:
+          //   }
+          // },
           tag: _heroAddTodo,
           createRectTween: (begin, end) {
             return CustomRectTween(begin: begin!, end: end!);

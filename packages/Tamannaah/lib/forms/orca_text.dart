@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import '../tools/utils.dart';
-import '../ui/decoration.dart';
+
+import 'package:darkknight/utils.dart';
+
 import 'form_typeahead.dart';
 import '../ui/primitive.dart';
 
@@ -238,7 +239,7 @@ class OrcaTextField<T> extends OrcaField {
     return Soup<bool>(
       initValue: true,
       builder: ((obscurepassword, soupState) {
-        print('OrcaTextForm');
+        // print('OrcaTextForm');
         return FormBuilderField<T>(
           name: name,
           enabled: enabled,
@@ -254,13 +255,11 @@ class OrcaTextField<T> extends OrcaField {
 
               enabled: enabled,
               onChanged: (value) {
-                field.didChange(cast<T>(
-                    valueTransformer<T>(valTransformer ?? ((v) => cast<T>(v)), mask)(value)));
+                field.didChange(cast<T>(valueTransformer<T>(valTransformer ?? ((v) => cast<T>(v)), mask)(value)));
               },
               validator: (value) {
-                print("OrcaTextForm : validator");
-                final val = cast<T>(
-                    valueTransformer<T>(valTransformer ?? ((v) => cast<T>(v)), mask)(value ?? ''));
+                // print("OrcaTextForm : validator");
+                final val = cast<T>(valueTransformer<T>(valTransformer ?? ((v) => cast<T>(v)), mask)(value ?? ''));
 
                 if (!optional && val == '' || val == null) {
                   return 'Required';
@@ -274,8 +273,7 @@ class OrcaTextField<T> extends OrcaField {
               obscuringCharacter: obscure ?? '❤', //✂⚗⚙❤☠♨⛑⛸♟♠♣♦⛏⚒⚖⛓⚔☎⚰⚱⌨✉
               obscureText: (obscure != null && obscurepassword) ? true : false,
 
-              toolbarOptions:
-                  const ToolbarOptions(copy: true, cut: true, paste: true, selectAll: true),
+              // toolbarOptions: const ToolbarOptions(copy: true, cut: true, paste: true, selectAll: true),
 
               maxLines: (obscure != null) ? 1 : deco.fml,
               style: deco.ts(),
@@ -437,7 +435,7 @@ class OrcaTypeAhead<T> extends OrcaField {
         return suggestion.toString();
       }),
       validator: (value) {
-        print("OrcaTextAhead : validator");
+        // print("OrcaTextAhead : validator");
         return (validator ??
             (m) {
               return null;
@@ -455,8 +453,7 @@ class OrcaTypeAhead<T> extends OrcaField {
   }
 }
 
-List<TextInputFormatter> inputFormatters<T>(
-    String mask, bool signed, List<TextInputFormatter>? inputFormatters) {
+List<TextInputFormatter> inputFormatters<T>(String mask, bool signed, List<TextInputFormatter>? inputFormatters) {
   final x = [
     if (inputFormatters != null) ...inputFormatters,
     if (T == int && !signed) FilteringTextInputFormatter.allow(RegExp(r'^\d*')),

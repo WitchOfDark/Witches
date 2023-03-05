@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../tools/utils.dart';
+import 'package:darkknight/utils.dart';
+
 import '../ui/d_theme.dart';
 import '../ui/decoration.dart';
 import '../ui/primitive.dart';
-import 'v3_basic.dart';
 
 Widget v3InputChip<T>({
   Deco? deco,
@@ -13,6 +13,7 @@ Widget v3InputChip<T>({
   final bool enabled = true,
   required List<T> initialValue,
   final void Function(List<T>?)? onChanged,
+  final Widget Function(T obj, Deco? d)? builder,
 }) {
   Deco d = (deco ?? dChip12).disable(!enabled);
 
@@ -43,7 +44,7 @@ Widget v3InputChip<T>({
                 // avatar: initialValue[index].icon != null
                 //     ? ico(initialValue[index].icon, deco: d)
                 //     : null,
-                label: T is V3Data ? cast<V3Data>(initialValue[index])!.build(d) : Text(initialValue[index].toString()),
+                label: builder != null ? builder(initialValue[index], d) : Text(initialValue[index].toString()),
                 onDeleted: () {
                   if (enabled) {
                     List<T>? n = field.value;
@@ -70,6 +71,7 @@ Widget v3FilterChip<T>({
   required List<T> initialValue,
   required List<T> values,
   final void Function(List<T>?)? onChanged,
+  final Widget Function(T obj, Deco? d)? builder,
 }) {
   Deco yd = (yDeco ?? dIos).disable(!enabled);
   Deco nd = (nDeco ?? dError).disable(!enabled);
@@ -104,7 +106,8 @@ Widget v3FilterChip<T>({
                 tooltip: name,
                 shape: RoundedRectangleBorder(borderRadius: d.brR ?? BorderRadius.zero, side: d.bs),
                 // avatar: values[index].icon != null ? ico(values[index].icon, deco: d) : null,
-                label: T is V3Data ? cast<V3Data>(values[index])!.build(d) : Text(values[index].toString()),
+                label: builder != null ? builder(values[index], d) : Text(values[index].toString()),
+
                 onSelected: (selection) {
                   if (enabled) {
                     if (selected) {
@@ -132,6 +135,7 @@ Widget v3ChoiceChip<T>({
   required T initialValue,
   required List<T> values,
   final void Function(List<T>?)? onChanged,
+  final Widget Function(T obj, Deco? d)? builder,
 }) {
   Deco yd = (yDeco ?? dIos).disable(!enabled);
   Deco nd = (nDeco ?? dError).disable(!enabled);
@@ -164,7 +168,8 @@ Widget v3ChoiceChip<T>({
                 tooltip: name,
                 shape: RoundedRectangleBorder(borderRadius: d.brR ?? BorderRadius.zero, side: d.bs),
                 // avatar: values[index].icon != null ? ico(values[index].icon, deco: d) : null,
-                label: T is V3Data ? cast<V3Data>(values[index])!.build(d) : Text(values[index].toString()),
+                label: builder != null ? builder(values[index], d) : Text(values[index].toString()),
+
                 onSelected: (selection) {
                   n = values[index];
                   if (enabled) {
@@ -181,5 +186,77 @@ Widget v3ChoiceChip<T>({
         );
       },
     ),
+  );
+}
+
+Widget v3Segmented<T>({
+  required final String name,
+  final bool enabled = true,
+  required dynamic initialValue,
+  List<T> disabledValues = const [],
+  required List<T> values,
+  final Deco? deco,
+  final void Function(List<T>?)? onChanged,
+  final Widget Function(T obj, Deco? d)? builder,
+}) {
+  Type type = initialValue.runtimeType;
+  assert(type == T || type == List<T>);
+
+  Widget segmented(field) => SegmentedButton<T>(
+        style: deco != null
+            ? ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith((states) {
+                  if (states.contains(MaterialState.selected)) {
+                    return deco.hS;
+                  }
+                  if (states.contains(MaterialState.disabled)) {
+                    return deco.disable(true).hB;
+                  }
+                  return deco.hB;
+                }),
+              )
+            : null,
+        segments: values
+            .map(
+              (e) => ButtonSegment<T>(
+                value: e,
+                label: builder != null ? builder(e, deco) : Text(e.toString()),
+                enabled: !disabledValues.contains(e),
+              ),
+            )
+            .toList(),
+        selected: field.value != null ? (type == T ? <T>{field.value} : field.value.toSet()) : <T>{},
+        onSelectionChanged: (Set<T> newSelection) {
+          if (enabled) {
+            if (type == T) {
+              field.didChange(newSelection.first);
+            } else if (type == List<T>) {
+              field.didChange(newSelection.toList());
+            }
+          }
+        },
+        multiSelectionEnabled: type == List<T>,
+      );
+
+  if (type == List<T>) {
+    assert(initialValue.length < values.length);
+
+    return FormBuilderField<List<T>>(
+      name: name,
+      initialValue: List<T>.from(initialValue),
+      enabled: enabled,
+      builder: (field) {
+        return segmented(field);
+      },
+    );
+  }
+
+  return FormBuilderField<T>(
+    name: name,
+    initialValue: cast<T>(initialValue),
+    enabled: enabled,
+    builder: (field) {
+      return segmented(field);
+    },
   );
 }

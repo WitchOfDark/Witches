@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:google_fonts/google_fonts.dart';
-
 import 'decoration.dart';
 
 ///0 : Scaffold
@@ -24,13 +22,14 @@ import 'decoration.dart';
 final
     //Debug
     dDebug = Deco(0, bW: 1, B: Colors.transparent),
-    dScaf0 = Deco(0, elv: 0, H: 40, fs: 17),
+    dd0 = Deco(0),
+    dScaf0 = Deco(0, elv: 0, H: 40, fs: 16),
     dT = Deco(0, B: Colors.transparent, F: Colors.black, S: Colors.amber),
 
     //Scaffold
 
     //Text
-    dH1 = Deco(1, fs: 50, F: Colors.black, fgf: GoogleFonts.poppins()),
+    dH1 = Deco(1, fs: 50, F: Colors.black),
     dH2 = Deco(2, fs: 20, F: Colors.black),
     dH3 = Deco(3, fs: 15),
 
@@ -44,9 +43,6 @@ final
       fml: 1,
       fto: TextOverflow.ellipsis,
       bW: 1,
-      B: const Color.fromARGB(255, 244, 244, 244),
-      S: const Color.fromARGB(255, 83, 83, 83),
-      F: Colors.blue,
     ),
 
     //Button
@@ -66,14 +62,11 @@ final
     dBtn8 = Deco(
       8,
       brR: brR_a_4,
-      fs: 13,
+      fs: 15,
       pad: e4,
       mar: e4,
       fml: 1,
       W: 120,
-      S: const Color.fromARGB(255, 10, 48, 216),
-      B: const Color.fromARGB(255, 56, 56, 56),
-      F: const Color.fromARGB(255, 220, 220, 220),
       elv: 4,
     ),
     dPopup8 = Deco(
@@ -84,7 +77,7 @@ final
     dSlider9 = Deco(9),
     dRating10 = Deco(10),
     dDropDown11 = Deco(11, brR: brR_a_10, fs: 16),
-    dChip12 = Deco(12, fs: 16, brR: brR_a_16),
+    dChip12 = Deco(12, fs: 16, brR: brR_a_6),
     dSwitchRadioCheck14 = Deco(14, fs: 16),
 
     //Special

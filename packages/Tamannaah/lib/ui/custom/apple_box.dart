@@ -1,8 +1,8 @@
+import 'package:darkknight/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../forms/orca_field.dart';
-import '../../tools/utils.dart';
 import '../decoration.dart';
 import '../primitive.dart';
 
@@ -40,7 +40,6 @@ class LionLink {
     this.fn,
   });
 
-  @override
   Widget build() {
     final Deco d = deco.disable(fn == null);
     return box(
@@ -67,7 +66,7 @@ class LionLink {
                   CupertinoSwitch? s = searchWidget<CupertinoSwitch>(childContext);
                   s?.onChanged!(!s.value);
 
-                  print(s);
+                  // print(s);
 
                   FocusScope.of(childContext).unfocus();
                   // FocusScope.of(Scaffold.of(childContext).context).requestFocus();
@@ -99,8 +98,7 @@ class LionLink {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 tx(title, deco: d),
-                                if (subtitle != null)
-                                  tx(subtitle ?? 'sub', deco: d.cp(fs: (d.fs ?? 17) - 5)),
+                                if (subtitle != null) tx(subtitle ?? 'sub', deco: d.cp(fs: (d.fs ?? 17) - 5)),
                               ],
                             ),
                       const Spacer(),

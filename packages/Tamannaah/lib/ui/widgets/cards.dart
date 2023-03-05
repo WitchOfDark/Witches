@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../router/router.dart';
-import '../../tools/extensions/build_context.dart';
-import '../../tools/utils.dart';
+import 'package:darkknight/utils.dart';
+import 'package:darkknight/extensions/build_context.dart';
 
 import '../custom/circle_color_picker.dart';
 import '../d_theme.dart';
@@ -77,37 +76,40 @@ class SafeScuffy extends StatelessWidget {
           : AppBar(
               elevation: deco.elv,
               toolbarHeight: deco.H,
-              leading: Lego(
-                  deco: deco.cp(S: deco.hF, fs: 20),
-                  name: 'Return back',
-                  icon: CupertinoIcons.chevron_back,
-                  fn: () {
-                    if (Navigator.canPop(context)) {
-                      Navigator.pop(context);
-                    } else {
-                      context.go('/');
-                    }
-                  }).icoBtn(),
+              leading: icoBtn(
+                CupertinoIcons.chevron_back,
+                () {
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  } else {
+                    context.go('/');
+                  }
+                },
+                deco: deco.cp(S: deco.hF, fs: 20),
+                label: 'Return back',
+              ),
               centerTitle: true,
               title: tx('$title : ${GoRouter.of(context).location}', deco: deco),
               backgroundColor: deco.hS,
               foregroundColor: deco.hF,
               actions: [
                 ...?actions,
-                Lego(
-                    deco: deco.cp(S: deco.hF, fs: 20),
-                    name: 'Settings',
-                    icon: CupertinoIcons.settings,
-                    fn: () {
-                      context.pushNamed(settings);
-                    }).icoBtn(),
-                Lego(
-                    deco: deco.cp(S: deco.hF, fs: 20),
-                    name: 'Search',
-                    icon: Icons.search,
-                    fn: () {
-                      showSearch(context: context, delegate: MySearchDelegate());
-                    }).icoBtn(),
+                icoBtn(
+                  CupertinoIcons.settings,
+                  () {
+                    context.pushNamed('settings');
+                  },
+                  label: 'Settings',
+                  deco: deco.cp(S: deco.hF, fs: 20),
+                ),
+                icoBtn(
+                  Icons.search,
+                  () {
+                    showSearch(context: context, delegate: MySearchDelegate());
+                  },
+                  deco: deco.cp(S: deco.hF, fs: 20),
+                  label: 'Search',
+                ),
                 if (drawer != null)
                   Builder(
                     builder: (context) {
@@ -132,50 +134,60 @@ class SafeScuffy extends StatelessWidget {
           : null,
       body: SafeArea(
         child: portrait
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: SingleChildScrollView(
-                        child: body,
-                      ),
-                    ),
-                  ),
-                  if (btnInfos != null && !context.keyboardVisible)
-                    AnimBar(
-                      deco: dIos.cp(W: null),
-                      legos: btnInfos!,
-                    ),
-                ],
-              )
+            ? body
+            // Column(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Expanded(
+            //         child: Center(
+            //           child: SingleChildScrollView(
+            //             child: body,
+            //           ),
+            //         ),
+            //       ),
+            //       // if (btnInfos != null && !context.keyboardVisible)
+            //       //   AnimBar(
+            //       //     deco: dIos.cp(W: null),
+            //       //     legos: btnInfos!,
+            //       //   ),
+            //     ],
+            //   )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (btnInfos != null && !context.keyboardVisible)
                     AnimBar(
-                      deco: dIos.cp(W: 100),
+                      deco: dIos.cp(W: 80),
+                      boxdeco: dIos.cp(H: 250),
                       legos: btnInfos!,
                       boxrow: false,
                       showName: true,
                     ), //////////////
-                  Expanded(
-                    child: Center(
-                      child: SingleChildScrollView(
-                        child: body,
-                      ),
-                    ),
-                  ),
+                  // Expanded(
+                  // child: Center(
+                  // child: SingleChildScrollView(
+                  // child:
+                  body,
+                  // ),
+                  // ),
+                  // ),
                 ],
               ),
       ),
+      bottomNavigationBar: portrait
+          ? AnimBar(
+              deco: dIos.cp(W: null),
+              legos: btnInfos!,
+            )
+          : null,
     );
   }
 }
 
 class DecoDebugScuffy extends StatelessWidget {
   final String title;
-  Deco deco;
+  final Deco deco;
   final List<Widget>? drawer;
   final Widget Function() mobile;
   final Widget Function()? tablet;
@@ -227,13 +239,14 @@ class DecoDebugScuffy extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: Navigator.canPop(context)
-              ? Lego(
-                  deco: deco.cp(S: deco.hF),
-                  name: 'Return back',
-                  icon: CupertinoIcons.chevron_back,
-                  fn: (() {
+              ? icoBtn(
+                  CupertinoIcons.chevron_back,
+                  () {
                     Navigator.pop(context);
-                  })).icoBtn()
+                  },
+                  deco: deco.cp(S: deco.hF),
+                  label: 'Return back',
+                )
               : null,
           centerTitle: true,
           title: tx(title, deco: deco),
@@ -243,7 +256,7 @@ class DecoDebugScuffy extends StatelessWidget {
             if (drawer != null)
               Builder(builder: (context) {
                 return IconButton(
-                  icon: Icon(CupertinoIcons.list_dash),
+                  icon: const Icon(CupertinoIcons.list_dash),
                   onPressed: () {
                     Scaffold.of(context).openEndDrawer();
                   },
@@ -422,7 +435,7 @@ class ColorDebugger extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return box(
-      deco: Deco(0, B: Color.fromARGB(255, 240, 240, 240)),
+      deco: Deco(0, B: const Color.fromARGB(255, 240, 240, 240)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -430,7 +443,7 @@ class ColorDebugger extends StatelessWidget {
           // SizedBox(width: 10),
           tx(colorName),
           CircleColor(
-            size: Size(200, 200),
+            size: const Size(200, 200),
             controller: controller,
             // colorCodeBuilder: ((context, color) {
             //   return Tx('');

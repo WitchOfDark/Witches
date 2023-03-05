@@ -39,6 +39,7 @@ class Accent {
 class Rainbow {
   final String name;
   final String logo;
+  final bool dark;
 
   final List<Accent> accent;
 
@@ -46,6 +47,7 @@ class Rainbow {
     required this.name,
     required this.logo,
     required this.accent,
+    required this.dark,
   });
 
   Widget toWidget() {
@@ -64,6 +66,7 @@ class Rainbow {
     return Rainbow(
       name: r.name,
       logo: r.logo,
+      dark: r.dark,
       accent: [
         ...r.accent,
         ...accent.sublist(r.accent.length),
@@ -72,7 +75,7 @@ class Rainbow {
   }
 
   @override
-  String toString() => 'Rainbow(name: $name, logo: $logo, accent : ${accent.length})';
+  String toString() => 'Rainbow(name: $name, logo: $logo, dark: $dark, accent : ${accent.length})';
 }
 
 late final int _maxAccent;
@@ -95,6 +98,8 @@ class Grain {
 
   static int get maxAccent => _maxAccent;
 
+  static int get oneRainbow => _oneRainbow;
+
   static set oneRainbow(int id) {
     _oneRainbow = id;
   }
@@ -102,77 +107,16 @@ class Grain {
 
 List<Rainbow> get bows => _globalRainbows;
 List<Accent> get rain => _globalRainbows[_oneRainbow].accent;
+
 // List<Accent> get rain => _dummy;
 
 const List<Rainbow> darkSun = [
-  Rainbow(name: 'Sunlight', logo: '🌞', accent: [
+  Rainbow(name: 'Sunlight', logo: '🌞', dark: false, accent: [
     Accent(
       //0
-      F: Color.fromARGB(255, 76, 76, 76),
-      B: Color.fromARGB(255, 87, 248, 125),
-      S: Color.fromARGB(255, 62, 194, 255),
-    ),
-    Accent(
-      //1
-      F: Color.fromARGB(255, 87, 242, 216),
-      B: Color.fromARGB(255, 212, 72, 72),
-      S: Color.fromARGB(255, 81, 62, 255),
-    ),
-    Accent(
-      //2
-      F: Color.fromARGB(255, 174, 192, 55),
-      B: Color.fromARGB(255, 121, 43, 155),
-      S: Color.fromARGB(255, 255, 157, 200),
-    ),
-    Accent(
-      //3
-      F: Color.fromARGB(255, 33, 28, 33),
-      B: Color.fromARGB(255, 255, 255, 255),
-      S: Color.fromARGB(255, 255, 62, 62),
-    ),
-    Accent(
-      //4
-      F: Color.fromARGB(255, 33, 28, 33),
-      B: Color.fromARGB(255, 255, 255, 255),
-      S: Color.fromARGB(255, 255, 62, 62),
-    ),
-    Accent(
-      //5
-      F: Color.fromARGB(255, 33, 28, 33),
-      B: Color(0xFF2FB2F4),
-      S: Color.fromARGB(255, 255, 62, 62),
-    ),
-    Accent(
-      //6
-      F: Color.fromARGB(255, 33, 28, 33),
-      B: Color.fromARGB(255, 255, 255, 255),
-      S: Color.fromARGB(255, 255, 62, 62),
-    ),
-    Accent(
-      //7
-      F: Color.fromARGB(255, 33, 28, 33),
-      B: Color.fromARGB(255, 255, 255, 255),
-      S: Color.fromARGB(255, 255, 62, 62),
-    ),
-    Accent(
-      //8
-      F: Color.fromARGB(255, 33, 28, 33),
-      B: Color.fromARGB(255, 255, 255, 255),
-      S: Color.fromARGB(255, 255, 62, 62),
-    ),
-    Accent(
-      //9
-      F: Color.fromARGB(255, 33, 28, 33),
-      B: Color.fromARGB(255, 255, 255, 255),
-      S: Color.fromARGB(255, 255, 62, 62),
-    ),
-  ]),
-  Rainbow(name: 'DarkNight', logo: '♣', accent: [
-    Accent(
-      //0
-      F: Color.fromARGB(255, 239, 239, 239),
-      B: Color.fromARGB(255, 75, 75, 75),
-      S: Color.fromARGB(255, 32, 180, 99),
+      F: Colors.blue,
+      B: Colors.white,
+      S: Colors.white,
     ),
     Accent(
       //1
@@ -206,9 +150,9 @@ const List<Rainbow> darkSun = [
     ),
     Accent(
       //6
-      F: Color.fromARGB(255, 33, 28, 33),
-      B: Color.fromARGB(255, 255, 255, 255),
-      S: Color.fromARGB(255, 255, 62, 62),
+      F: Colors.blue,
+      B: Color.fromARGB(255, 244, 244, 244),
+      S: Color.fromARGB(255, 83, 83, 83),
     ),
     Accent(
       //7
@@ -224,6 +168,188 @@ const List<Rainbow> darkSun = [
     ),
     Accent(
       //9
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //10
+      F: Color.fromARGB(255, 53, 53, 53),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 221, 143, 199),
+    ),
+    Accent(
+      //11
+      F: Color.fromARGB(255, 54, 54, 54),
+      B: Color.fromARGB(255, 238, 238, 238),
+      S: Color.fromARGB(255, 70, 16, 71),
+    ),
+    Accent(
+      //12
+      F: Color.fromARGB(255, 253, 255, 242),
+      B: Color.fromARGB(255, 121, 43, 155),
+      S: Color.fromARGB(255, 255, 157, 200),
+    ),
+    Accent(
+      //13
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //14
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //15
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //16
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //17
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //18
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //19
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+  ]),
+  Rainbow(name: 'DarkNight', logo: '♣', dark: true, accent: [
+    Accent(
+      //0
+      F: Color.fromARGB(255, 239, 239, 239),
+      B: Color.fromARGB(255, 39, 39, 39),
+      S: Color.fromARGB(255, 32, 180, 99),
+    ),
+    Accent(
+      //1
+      F: Color.fromARGB(255, 231, 231, 231),
+      B: Color.fromARGB(255, 39, 39, 39),
+      S: Color.fromARGB(255, 81, 62, 255),
+    ),
+    Accent(
+      //2
+      F: Color.fromARGB(255, 253, 255, 242),
+      B: Color.fromARGB(255, 121, 43, 155),
+      S: Color.fromARGB(255, 255, 157, 200),
+    ),
+    Accent(
+      //3
+      F: Color.fromARGB(255, 235, 235, 235),
+      B: Color.fromARGB(255, 63, 63, 63),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //4
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //5
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //6
+      S: Color.fromARGB(255, 244, 244, 244),
+      B: Color.fromARGB(255, 83, 83, 83),
+      F: Colors.blue,
+    ),
+    Accent(
+      //7
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //8
+      F: Colors.blue,
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //9
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //10
+      F: Color.fromARGB(255, 53, 53, 53),
+      B: Color.fromARGB(255, 94, 10, 10),
+      S: Color.fromARGB(255, 221, 143, 199),
+    ),
+    Accent(
+      //11
+      F: Color.fromARGB(255, 235, 235, 235),
+      B: Color.fromARGB(255, 45, 10, 51),
+      S: Color.fromARGB(255, 21, 3, 24),
+    ),
+    Accent(
+      //12
+      F: Color.fromARGB(255, 253, 255, 242),
+      B: Color.fromARGB(255, 121, 43, 155),
+      S: Color.fromARGB(255, 255, 157, 200),
+    ),
+    Accent(
+      //13
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //14
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //15
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //16
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //17
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //18
+      F: Color.fromARGB(255, 33, 28, 33),
+      B: Color.fromARGB(255, 255, 255, 255),
+      S: Color.fromARGB(255, 255, 62, 62),
+    ),
+    Accent(
+      //19
       F: Color.fromARGB(255, 33, 28, 33),
       B: Color.fromARGB(255, 255, 255, 255),
       S: Color.fromARGB(255, 255, 62, 62),
@@ -255,7 +381,7 @@ void setDummy(List<Accent> newDummy) {
 ///12 : Chip
 ///13 : AltChip
 ///14: Radio : Checkbox : Switch
-List<Accent> _dummy = [
+List<Accent> _dummy = const [
   Accent(
     //0
     F: Colors.blue,

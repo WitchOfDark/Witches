@@ -3,15 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import '../ui/d_theme.dart';
 
-import '../tools/utils.dart';
+import 'package:darkknight/utils.dart';
+
 import '../ui/decoration.dart';
 import '../ui/primitive.dart';
 
 void emptyFunction(dynamic) {}
-
-abstract class V3Data {
-  Widget build(Deco d);
-}
 
 Widget v3AddSub({
   required final num initialValue,
@@ -68,6 +65,7 @@ Widget v3DropDown<T>({
   final Widget? prefix,
   final String? hint,
   final Widget? label,
+  final Widget Function(T obj, Deco? d)? builder,
   final bool enabled = true,
   final void Function(T?) onChanged = emptyFunction,
 }) {
@@ -76,7 +74,6 @@ Widget v3DropDown<T>({
   return Container(
     margin: d.mar,
     width: d.W,
-    height: d.H,
     child: FormBuilderField<T>(
       name: name,
       initialValue: cast<T>(initialValue),
@@ -89,9 +86,8 @@ Widget v3DropDown<T>({
           child: DropdownButtonFormField<T>(
             value: field.value,
             borderRadius: d.brR,
-            // underline: empty,
             decoration: d.iDeco(prefix: prefix, label: label, hintText: hint),
-            dropdownColor: d.B,
+            dropdownColor: d.hB,
             hint: (initialValue == null) ? tx(hint ?? name) : null,
             icon: Icon(
               CupertinoIcons.chevron_down,
@@ -99,6 +95,7 @@ Widget v3DropDown<T>({
               color: d.hF,
             ),
             isDense: true,
+            menuMaxHeight: d.H,
             elevation: d.elv?.toInt() ?? 8,
             isExpanded: true,
             style: d.ts(),
@@ -106,7 +103,7 @@ Widget v3DropDown<T>({
             items: values
                 .map((e) => DropdownMenuItem(
                       value: e,
-                      child: T is V3Data ? cast<V3Data>(e)!.build(d) : Text(e.toString()),
+                      child: builder != null ? builder(e, d) : Text(e.toString()),
                     ))
                 .toList(),
             onChanged: (value) {
@@ -259,6 +256,7 @@ Widget v3RadioGroup<T>({
   final Deco? deco,
   required final String name,
   final bool enabled = true,
+  final Widget Function(T obj, Deco? d)? builder,
   final ListTileControlAffinity controlAffinity = ListTileControlAffinity.trailing,
   final void Function(T?) onChanged = emptyFunction,
 }) {
@@ -289,7 +287,7 @@ Widget v3RadioGroup<T>({
               },
               tileColor: d.hB,
               activeColor: d.hS,
-              title: T is V3Data ? cast<V3Data>(values[index])!.build(d) : Text(values[index].toString()),
+              title: builder != null ? builder(values[index], d) : Text(values[index].toString()),
               dense: true,
               contentPadding: d.pad,
               controlAffinity: controlAffinity,
@@ -308,6 +306,7 @@ Widget v3CheckboxGroup<T>({
   final Deco? deco,
   required final String name,
   final bool enabled = true,
+  final Widget Function(T obj, Deco? d)? builder,
   final ListTileControlAffinity controlAffinity = ListTileControlAffinity.trailing,
   final void Function(List<T>?) onChanged = emptyFunction,
 }) {
@@ -341,7 +340,7 @@ Widget v3CheckboxGroup<T>({
               tileColor: d.hB,
               activeColor: d.hS,
               checkColor: d.hF,
-              title: T is V3Data ? cast<V3Data>(allValues[index])!.build(d) : Text(allValues[index].toString()),
+              title: builder != null ? builder(allValues[index], d) : Text(allValues[index].toString()),
               dense: true,
               contentPadding: d.pad,
               controlAffinity: controlAffinity,

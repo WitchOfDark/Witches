@@ -1,9 +1,11 @@
+import 'package:darkknight/debug_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tamannaah/forms/v3_text.dart';
 
-import '../tools/utils.dart';
+import 'package:darkknight/utils.dart';
+
 import '../ui/d_theme.dart';
 import '../ui/decoration.dart';
 import '../ui/primitive.dart';
@@ -138,7 +140,7 @@ class V4Text<T> extends FormBuilderField<T> {
                       title: showErrorText ? tx(field.errorText ?? '', deco: dError) : empty,
                       row: false,
                       rev: true,
-                      child: TextField(
+                      child: TextFormField(
                         keyboardType: keyBoardType<T>(textInputType, signed),
                         inputFormatters: inputFormatters<T>(mask, signed, inputFormatter),
 
@@ -148,12 +150,20 @@ class V4Text<T> extends FormBuilderField<T> {
 
                         enabled: enabled,
 
+                        focusNode: state.effectiveFocusNode,
+
                         onChanged: (value) {
                           field.didChange(
                             cast<T>(
                               valueTransformer<T>(valTransformer ?? ((v) => cast<T>(v)), mask)(value),
                             ),
                           );
+                        },
+                        onFieldSubmitted: (value) {
+                          lava('on Field Submitted');
+                        },
+                        onSaved: (newValue) {
+                          lava('Field saved');
                         },
                         // validator: (value) {
                         //   final val = cast<T>(valueTransformer<T>(valTransformer ?? ((v) => cast<T>(v)), mask)(
@@ -171,7 +181,8 @@ class V4Text<T> extends FormBuilderField<T> {
                         obscuringCharacter: (obscure == null || obscure == '') ? '•' : obscure, //✂⚗⚙❤☠♨⛑⛸♟♠♣♦⛏⚒⚖⛓⚔☎⚰⚱⌨✉
                         obscureText: (obscure != null && state.obscure) ? true : false,
 
-                        toolbarOptions: const ToolbarOptions(copy: true, cut: true, paste: true, selectAll: true),
+                        // toolbarOptions: const ToolbarOptions(copy: true, cut: true, paste: true, selectAll: true),
+                        // contextMenuBuilder: (context, editableTextState) => ,
 
                         textAlign: textCenter ? TextAlign.center : TextAlign.start,
                         // selectionControls: MaterialTextSelectionControls(),
@@ -194,7 +205,8 @@ class V4Text<T> extends FormBuilderField<T> {
                                 obscure == null
                                     ? (suffix ?? empty)
                                     : IconButton(
-                                        icon: tx(state.obscure ? '🐞' : '🌝'),
+                                        icon: Icon(
+                                            state.obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined),
                                         onPressed: () {
                                           state.obscure = !state.obscure;
                                           field.setState(() {});
@@ -256,6 +268,7 @@ class V4TextState<T> extends FormBuilderFieldState<V4Text<T>, T> {
 
   @override
   void dispose() {
+    lava('Controller Disposed');
     // Dispose the controller when initState created it
     controller.dispose();
     super.dispose();

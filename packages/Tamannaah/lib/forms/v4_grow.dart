@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../tools/debug_functions.dart';
-import '../tools/utils.dart';
 import '../ui/d_theme.dart';
 import '../ui/decoration.dart';
-import '../ui/lego.dart';
 import '../ui/mario/mario.dart';
 import '../ui/primitive.dart';
 import 'form_lion.dart';
@@ -15,11 +12,10 @@ import 'v3_grow.dart';
 class V4Grow extends FormBuilderField<List<Map<String, dynamic>>> {
   final GrowController? growController;
 
-  final String name;
+  // final String name;
   final String? title;
   final Deco? deco;
   final Deco? dialogDeco;
-  final bool enabled;
   final V3Builder orcaBuilder;
 
   /// while typing
@@ -28,14 +24,14 @@ class V4Grow extends FormBuilderField<List<Map<String, dynamic>>> {
 
     //
     this.growController,
-    required this.name,
     this.title,
     this.deco,
     this.dialogDeco,
-    this.enabled = true,
     required this.orcaBuilder,
 
     //From Super
+    final bool enabled = true,
+    required String name,
     AutovalidateMode autovalidateMode = AutovalidateMode.disabled,
     FocusNode? focusNode,
     FormFieldSetter<List<Map<String, dynamic>>>? onSaved,
@@ -207,8 +203,6 @@ class V4GrowState extends FormBuilderFieldState<V4Grow, List<Map<String, dynamic
   void didChange(List<Map<String, dynamic>>? value) {
     super.didChange(value);
 
-    owl('DidChange');
-
     if (value != null) {
       for (int ii = 0; ii < value.length; ii++) {
         if (growController.keys[ii].value() != value[ii]) {
@@ -225,10 +219,10 @@ class V4GrowState extends FormBuilderFieldState<V4Grow, List<Map<String, dynamic
     // _typeAheadController.dispose();
   }
 
-  @override
-  void reset() {
-    super.reset();
+  // @override
+  // void reset() {
+  //   super.reset();
 
-    // _typeAheadController.text = _getTextString(initialValue);
-  }
+  //   // _typeAheadController.text = _getTextString(initialValue);
+  // }
 }

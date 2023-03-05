@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../tools/debug_functions.dart';
-import '../tools/utils.dart';
+import 'package:darkknight/debug_functions.dart';
+import 'package:darkknight/utils.dart';
+
 import '../ui/d_theme.dart';
 import '../ui/decoration.dart';
 import '../ui/lego.dart';

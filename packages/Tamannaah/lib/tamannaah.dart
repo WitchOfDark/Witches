@@ -1,88 +1,64 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 library tamannaah;
-
-export 'services/bloc_service.dart';
-
-//---------------------------------------------------------
 
 import 'dart:async';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
+import 'package:darkknight/bloc_service.dart';
+import 'package:darkknight/debug_functions.dart';
+import 'package:darkknight/extensions/build_context.dart';
+import 'package:darkknight/utils.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hive/hive.dart';
-// import 'package:isar/isar.dart';
-
-import 'package:intl/date_symbol_data_local.dart';
-
-import 'package:path_provider/path_provider.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'router/special/error404.dart';
-import 'services/fire_auth/fire_service.dart';
-
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:tamannaah/services/settings/settings_bloc.dart';
 
 import 'router/router.dart';
-import 'services/fire_auth/providers/fire_provider.dart';
-import 'tools/extensions/build_context.dart';
-import 'tools/utils.dart';
-import 'ui/rainbow.dart';
-
+import 'router/special/error404.dart';
 import 'services/bloc_creeper.dart';
-import 'services/bloc_service.dart';
-import 'services/hive_constants.dart';
-import 'services/api/api_bloc.dart';
-import 'services/api/api_service.dart';
-import 'services/settings/settings_bloc.dart';
-import 'services/settings/settings_service.dart';
-
-import 'tools/debug_functions.dart';
+import 'ui/rainbow.dart';
 
 late final GoRouter globalRouter;
 
-void emptyFunction() {}
+FutureOr<void> emptyFunction(
+  List<BlocService> blocService,
+  /*TamannaahNotifier tamannaahNotifier*/
+) {
+  return null;
+}
 
-Future<void> tamannaahInit({
+Future<void> electrify({
   required final String appName,
   required List<BlocService> blocService,
-  FirebaseOptions? fireOptions,
-  List<FireMoon> fireMoons = const [],
   required bool creeper,
   required List<int> myHiveConstants,
   required List<Rainbow> myRainbows,
   required List<GoRoute> myRoutes,
-  FireProvider? customAuthProvider,
   required List<LocalizationsDelegate<dynamic>>? localizationsDelegates,
   required List<Locale> supportedLocales,
-  void Function() init = emptyFunction,
+  // required TamannaahNotifier tamannaahNotifier,
+  required Color seedColor,
+  FutureOr<void> Function(
+    List<BlocService> blocService,
+    /*TamannaahNotifier tamannaahNofier*/
+  )
+      init = emptyFunction,
 }) async {
   runZonedGuarded<Future<void>>(
     () async {
       // debugPaintLayerBordersEnabled = true;
       // debugRepaintRainbowEnabled = true;
 
-      // This captures errors reported by the Flutter framework.
-      FlutterError.onError = (FlutterErrorDetails details) async {
-        final dynamic exception = details.exception;
-        final StackTrace? stackTrace = details.stack;
-        if (kDebugMode) {
-          // In development mode simply print to console.
-          FlutterError.dumpErrorToConsole(details);
-        } else {
-          // In production mode report to the application zone
-          Zone.current.handleUncaughtError(exception, stackTrace!);
-        }
-      };
+      WidgetsFlutterBinding.ensureInitialized();
 
       megaAppName = appName;
 
-      lava("TamannaahInit");
-
-      WidgetsFlutterBinding.ensureInitialized();
+      lava("Tamannaah");
 
       await SystemChrome.setPreferredOrientations([
         DeviceOrientation.landscapeLeft,
@@ -90,6 +66,13 @@ Future<void> tamannaahInit({
         DeviceOrientation.portraitDown,
         DeviceOrientation.portraitUp,
       ]);
+
+      // await SystemChrome.setEnabledSystemUIMode(
+      //   SystemUiMode.immersive,
+      //   overlays: [
+      //     SystemUiOverlay.bottom,
+      //   ],
+      // );
 
       ErrorWidget.builder = (FlutterErrorDetails details) {
         // If we're in debug mode, use the normal error widget which shows the error
@@ -118,93 +101,27 @@ Future<void> tamannaahInit({
         Bloc.observer = Creeper();
       }
 
-      if (kDebugMode) {
-        for (var e in myHiveConstants) {
-          if (globalHiveConstants.contains(e)) {
-            throw Exception("Same constant on two hiveModels");
-          }
-        }
-      }
-
       Grain(myRainbows);
 
-      if (!Device.isWeb) {
-        lava(await getApplicationSupportDirectory());
-        Hive.init((await getApplicationSupportDirectory()).path);
-      }
-
-      ApiService apiService = ApiService();
-      SettingsService settingsService = SettingsService();
-
-      // IsarApiService isarApiService = IsarApiService()..init();
-
-      FireService fireService = FireService();
-      await fireService.fireBloc(
-        blocService: blocService,
-        fireOptions: fireOptions,
-        fireMoons: fireMoons,
-        customAuthProvider: customAuthProvider,
+      //---------------------------
+      await init(
+        blocService, /*tamannaahNotifier*/
       );
-
-      blocService.addAll([
-        BlocService(
-          service: settingsService,
-          // serviceProvider: () {
-          //   return RepositoryProvider<SettingsService>(
-          //     create: (context) => settingsService,
-          //   );
-          // },
-          blocProvider: () {
-            return BlocProvider<SettingsBloc>(
-              create: (context) => SettingsBloc(settingsService)..add(ESettingsLoad()),
-            );
-          },
-        ),
-        BlocService(
-          service: apiService,
-          // serviceProvider: () {
-          //   return RepositoryProvider<ApiService>(
-          //     create: (context) => apiService,
-          //   );
-          // },
-          blocProvider: () {
-            return BlocProvider<ApiBloc>(
-              create: (context) => ApiBloc(apiService),
-            );
-          },
-        ),
-        // BlocService(
-        //   service: null,
-        //   blocProvider: () {
-        //     return BlocProvider<BerryBloc>(
-        //       create: (context) => BerryBloc(),
-        //     );
-        //   },
-        // ),
-      ]);
-
-      // final isar = await Isar.open(
-      //   [
-      //     IsarApiSchema,
-      //   ],
-      //   directory: (await getApplicationSupportDirectory()).path,
-      // );
-
       for (var e in blocService) {
         await e.service?.init();
       }
+      //---------------------------
 
-      globalRouter = createRouter(myRoutes, fireMoons.isNotEmpty);
-
-      init();
+      globalRouter = createRouter(myRoutes);
 
       // runApp(Preview(MyApp(blocService)));
       runApp(
         Tamannaah(
           blocService: blocService,
-          seedColor: Colors.black,
+          seedColor: seedColor,
           localizationsDelegates: localizationsDelegates,
           supportedLocales: supportedLocales,
+          // tamannaahNotifier: tamannaahNotifier,
         ),
       );
     },
@@ -223,12 +140,22 @@ Future<void> tamannaahInit({
   );
 }
 
+class MyScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        // PointerDeviceKind.trackpad,
+      };
+}
+
 class Tamannaah extends StatelessWidget {
   const Tamannaah({
     required this.blocService,
     required this.seedColor,
     required this.localizationsDelegates,
     required this.supportedLocales,
+    // required this.tamannaahNotifier,
     super.key,
   });
 
@@ -236,38 +163,60 @@ class Tamannaah extends StatelessWidget {
   final Color seedColor;
   final List<LocalizationsDelegate<dynamic>>? localizationsDelegates;
   final List<Locale> supportedLocales;
+  // final TamannaahNotifier tamannaahNotifier;
 
   @override
   Widget build(BuildContext context) {
-    if (blocService.isEmpty) {
-      throw (Exception("No bloc found"));
-    }
-
     // return MultiRepositoryProvider(
     //   providers: blocService.map((e) => e.serviceProvider()).toList(),
     //   child:
 
-    // dino('--------------------------------Material App');
-    // megaAllLocales = supportedLocales;
+    // lava('Bloc empty : ${blocService.isEmpty} ${blocService.length}');
+
+    assert(blocService.isNotEmpty);
+
+    MyScrollBehavior? myScrollBehaviour = !Device.isMobile ? MyScrollBehavior() : null;
 
     return MultiBlocProvider(
       providers: blocService.map((e) => e.blocProvider()).toList(),
+      // blocService.fold(
+      // child: TamannaahInheritedNotifier(
+      // tamannaahNotifier: tamannaahNotifier,
       child: ScreenUtilInit(
         designSize: const Size(360, 780),
         // minTextAdapt: true,
         useInheritedMediaQuery: true,
         builder: (BuildContext context, Widget? child) {
-          return BlocConsumer<SettingsBloc, SettingsState>(
-            listener: (context, state) {},
+          return BlocBuilder<SettingsBloc, SettingsState>(
+            // listener: (context, state) {},
+            buildWhen: (previous, current) {
+              lava(cast<SSettingsLoaded>(previous));
+              owl(cast<SSettingsLoaded>(current));
+              unicorn(cast<SSettingsLoaded>(previous) != cast<SSettingsLoaded>(current));
+              return cast<SSettingsLoaded>(previous) != cast<SSettingsLoaded>(current);
+            },
             builder: (context, state) {
-              dino('Settings bloc');
-              SettingsBloc bloc = BlocProvider.of<SettingsBloc>(context);
-              Settings? settings = cast<SSettingsLoaded>((bloc.state))?.settings;
+              // TamannaahNotifier? tamannaahNotifier = TamannaahInheritedNotifier.of(context);
+              // TSettings? settings = tamannaahNotifier?.data;
+
+              TSettings? settings = cast<SSettingsLoaded>((state))?.settings;
+              // dino(settings?.toMap().toString());
+
+              SystemChrome.setSystemUIOverlayStyle(
+                bows[settings?.theme ?? 0].dark ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light,
+                // SystemUiOverlayStyle(
+                //   statusBarColor: Colors.white,
+                //   statusBarBrightness: Brightness.dark,
+                // ),
+              );
+
+              // MediaQuery.of(context).platformBrightness;
+
               return MaterialApp.router(
                 //
                 title: megaAppName,
 
-                themeMode: ThemeMode.light,
+                themeMode: bows[settings?.theme ?? 0].dark ? ThemeMode.dark : ThemeMode.light,
                 theme: ThemeData(
                   useMaterial3: true,
                   // textTheme: TextTheme(),
@@ -288,36 +237,76 @@ class Tamannaah extends StatelessWidget {
                   ),
                 ),
 
+                scrollBehavior: myScrollBehaviour,
+
                 //Go_router
                 routeInformationParser: globalRouter.routeInformationParser,
                 routeInformationProvider: globalRouter.routeInformationProvider,
                 routerDelegate: globalRouter.routerDelegate,
 
                 //Device preview
-                useInheritedMediaQuery: true,
+                useInheritedMediaQuery: kDebugMode,
 
                 //
-                // locale: megaLocale,
+                locale: settings?.locale != null ? Locale(settings!.locale!) : null,
                 localizationsDelegates: localizationsDelegates,
                 supportedLocales: supportedLocales,
 
                 // showSemanticsDebugger: true,
                 // showPerformanceOverlay: true,
-                debugShowCheckedModeBanner: false,
+                debugShowCheckedModeBanner: kDebugMode,
 
                 //
-                builder: (context, widget) {
-                  lava('Main Widget');
+                builder: (context, child) {
                   initializeDateFormatting();
-                  return widget ?? const Text('No Main Widget');
+
+                  return child ?? const Text('No Main Widget');
                 },
                 // debugShowMaterialGrid: true,
               );
             },
           );
         },
+        // ),
       ),
-      // ),
+      //   (previousWidget, bloc) {
+      //     final Widget h = bloc.blocConsumer == null
+      //         ? previousWidget
+      //         : bloc.blocConsumer!(
+      //             (context) => previousWidget,
+      //           );
+      //     lava('${bloc.blocConsumer} : $previousWidget : $h');
+      //     return h;
+      //   },
+      // );
     );
   }
 }
+
+// class TamannaahNotifier extends ChangeNotifier {
+//   TSettings _data;
+
+//   TamannaahNotifier({
+//     required TSettings data,
+//   }) : _data = data;
+
+//   TSettings get data => _data;
+
+//   set data(TSettings newData) {
+//     if (newData != _data) {
+//       _data = newData;
+//       notifyListeners();
+//     }
+//   }
+// }
+
+// class TamannaahInheritedNotifier extends InheritedNotifier<TamannaahNotifier> {
+//   const TamannaahInheritedNotifier({
+//     super.key,
+//     required TamannaahNotifier tamannaahNotifier,
+//     required super.child,
+//   }) : super(notifier: tamannaahNotifier);
+
+//   static TamannaahNotifier? of(BuildContext context) =>
+//       context.dependOnInheritedWidgetOfExactType<TamannaahInheritedNotifier>()?.notifier;
+// }

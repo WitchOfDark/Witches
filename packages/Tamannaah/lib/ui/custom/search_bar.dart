@@ -2,31 +2,32 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../forms/v3_text.dart';
 import '../../forms/v4_text.dart';
-import '../../tools/debug_functions.dart';
+import 'package:darkknight/debug_functions.dart';
+
 import '../../ui/d_theme.dart';
 
 import '../primitive.dart';
-import '../raindeer/flutter_seq_anim.dart';
 
 class SearchBar extends StatefulWidget {
-  @override
-  _SearchBarState createState() => _SearchBarState();
-}
+  const SearchBar({super.key});
 
-int toggle = 0;
+  @override
+  State<SearchBar> createState() => _SearchBarState();
+}
 
 class _SearchBarState extends State<SearchBar> with SingleTickerProviderStateMixin {
   late AnimationController _con;
   late TextEditingController _textEditingController;
+  int toggle = 0;
+
   @override
   void initState() {
     super.initState();
     _textEditingController = TextEditingController();
     _con = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 375),
+      duration: const Duration(milliseconds: 375),
     );
   }
 
@@ -39,22 +40,22 @@ class _SearchBarState extends State<SearchBar> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromARGB(255, 90, 123, 254),
+      color: const Color.fromARGB(255, 90, 123, 254),
       child: Center(
         child: Container(
           height: 70.0,
           width: 250.0,
           color: Colors.red,
-          alignment: Alignment(-1.0, 0.0),
+          alignment: const Alignment(-1.0, 0.0),
           child: AnimatedContainer(
-            duration: Duration(milliseconds: 375),
+            duration: const Duration(milliseconds: 375),
             height: 48.0,
             width: (toggle == 0) ? 48.0 : 250.0,
             curve: Curves.easeOut,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(30.0),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.black26,
                   spreadRadius: -10.0,
@@ -66,24 +67,20 @@ class _SearchBarState extends State<SearchBar> with SingleTickerProviderStateMix
             child: Stack(
               children: [
                 AnimatedPositioned(
-                  duration: Duration(milliseconds: 375),
+                  duration: const Duration(milliseconds: 375),
                   top: 6.0,
                   right: 7.0,
                   curve: Curves.easeOut,
                   child: AnimatedOpacity(
                     opacity: (toggle == 0) ? 0.0 : 1.0,
-                    duration: Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 200),
                     child: Container(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
-                        color: Color(0xffF2F3F7),
+                        color: const Color(0xffF2F3F7),
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                       child: AnimatedBuilder(
-                        child: Icon(
-                          Icons.mic,
-                          size: 20.0,
-                        ),
                         builder: (context, widget) {
                           return Transform.rotate(
                             angle: _con.value * 2.0 * pi,
@@ -91,31 +88,35 @@ class _SearchBarState extends State<SearchBar> with SingleTickerProviderStateMix
                           );
                         },
                         animation: _con,
+                        child: const Icon(
+                          Icons.mic,
+                          size: 20.0,
+                        ),
                       ),
                     ),
                   ),
                 ),
                 AnimatedPositioned(
-                  duration: Duration(milliseconds: 375),
+                  duration: const Duration(milliseconds: 375),
                   left: (toggle == 0) ? 20.0 : 40.0,
                   curve: Curves.easeOut,
                   top: 11.0,
                   child: AnimatedOpacity(
                     opacity: (toggle == 0) ? 0.0 : 1.0,
-                    duration: Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 200),
                     child: Container(
                       height: 23.0,
                       color: Colors.yellow,
                       width: 180.0,
                       child: TextField(
                         controller: _textEditingController,
-                        cursorRadius: Radius.circular(10.0),
+                        cursorRadius: const Radius.circular(10.0),
                         cursorWidth: 2.0,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.never,
                           labelText: 'Search...',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             color: Color(0xff5B5B5B),
                             fontSize: 17.0,
                             fontWeight: FontWeight.w500,
@@ -135,8 +136,8 @@ class _SearchBarState extends State<SearchBar> with SingleTickerProviderStateMix
                   borderRadius: BorderRadius.circular(30.0),
                   child: IconButton(
                     splashRadius: 19.0,
-                    padding: EdgeInsets.all(12.0),
-                    icon: Icon(Icons.add_alarm_outlined),
+                    padding: const EdgeInsets.all(12.0),
+                    icon: const Icon(Icons.add_alarm_outlined),
                     onPressed: () {
                       setState(
                         () {
@@ -187,9 +188,8 @@ class _SearchAnimateState extends State<SearchAnimate> with SingleTickerProvider
 
   @override
   void dispose() {
-    super.dispose();
-    textCon.dispose();
     con.dispose();
+    super.dispose();
   }
 
   @override

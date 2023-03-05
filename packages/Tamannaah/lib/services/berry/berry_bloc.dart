@@ -1,14 +1,13 @@
+import 'package:darkknight/debug_functions.dart';
+import 'package:darkknight/utils.dart';
+import 'package:darkknight/error/fire_error.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../tools/debug_functions.dart';
-import '../../tools/utils.dart';
 
 import 'package:equatable/equatable.dart';
 
 import '../../../ui/mario/mario.dart';
-
-import '../fire_auth/fire_error.dart';
 
 //
 //
@@ -89,8 +88,7 @@ class BerryBloc extends Bloc<BerryEvent, BerryState> {
 //
 //
 class BerryWidget<D> extends StatelessWidget {
-  const BerryWidget({Key? key, this.berryBloc, required this.builder, required this.init})
-      : super(key: key);
+  const BerryWidget({Key? key, this.berryBloc, required this.builder, required this.init}) : super(key: key);
 
   final Widget Function(BerryBloc bloc, D? data) builder;
   final void Function(BerryBloc bloc) init;

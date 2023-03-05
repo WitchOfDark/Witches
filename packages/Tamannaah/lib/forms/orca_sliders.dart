@@ -3,7 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../tools/utils.dart';
+import 'package:darkknight/utils.dart';
+
 import '../ui/decoration.dart';
 import '../ui/primitive.dart';
 
@@ -39,8 +40,7 @@ class OrcaSlider extends OrcaField {
             showValueIndicator: ShowValueIndicator.always,
             overlayColor: deco.hS.withAlpha(100),
             thumbColor: deco.hS,
-            thumbShape:
-                RoundSliderThumbShape(enabledThumbRadius: deco.fs ?? 8, elevation: deco.elv ?? 5),
+            thumbShape: RoundSliderThumbShape(enabledThumbRadius: deco.fs ?? 8, elevation: deco.elv ?? 5),
             activeTrackColor: deco.hS,
             inactiveTrackColor: deco.hF,
             valueIndicatorColor: deco.hB,
@@ -99,10 +99,8 @@ class OrcaRange extends OrcaField {
             showValueIndicator: ShowValueIndicator.always,
             overlayColor: deco.hS.withAlpha(100),
             thumbColor: deco.hS,
-            rangeThumbShape: RoundRangeSliderThumbShape(
-                enabledThumbRadius: deco.fs ?? 8, elevation: deco.elv ?? 5),
-            thumbShape:
-                RoundSliderThumbShape(enabledThumbRadius: deco.fs ?? 8, elevation: deco.elv ?? 5),
+            rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: deco.fs ?? 8, elevation: deco.elv ?? 5),
+            thumbShape: RoundSliderThumbShape(enabledThumbRadius: deco.fs ?? 8, elevation: deco.elv ?? 5),
             activeTrackColor: deco.hS,
             inactiveTrackColor: deco.hF,
             valueIndicatorColor: deco.hB,
@@ -118,12 +116,8 @@ class OrcaRange extends OrcaField {
             // displayValues: DisplayValues.none,
             // decoration: InputDecoration.collapsed(hintText: hint),
             labels: RangeLabels(
-                field.value?.start.round().toString() ??
-                    initialValue?.start.toString() ??
-                    min.toString(),
-                field.value?.end.round().toString() ??
-                    initialValue?.end.toString() ??
-                    max.toString()),
+                field.value?.start.round().toString() ?? initialValue?.start.toString() ?? min.toString(),
+                field.value?.end.round().toString() ?? initialValue?.end.toString() ?? max.toString()),
             onChanged: (value) {
               if (enabled) {
                 field.didChange(value);
@@ -170,8 +164,7 @@ class OrcaRating extends OrcaField {
 
   @override
   Widget build({GlobalKey<FormBuilderState>? formKey, dynamic initValue}) {
-    double ratings =
-        normalize(min, cast<double>(formKey?.get<double>(name)) ?? initialValue ?? 0, max);
+    double ratings = normalize(min, cast<double>(formKey?.get<double>(name)) ?? initialValue ?? 0, max);
 
     return Padding(
       padding: deco.pad ?? e4,
@@ -191,8 +184,7 @@ class OrcaRating extends OrcaField {
                 if (enabled) {
                   setState(
                     () {
-                      ratings =
-                          math.max(0, math.min(1, details.localPosition.dx / (deco.W ?? 150)));
+                      ratings = math.max(0, math.min(1, details.localPosition.dx / (deco.W ?? 150)));
                       ratings = div > 1 ? (ratings * div).round() / div : ratings;
                     },
                   );
@@ -203,8 +195,7 @@ class OrcaRating extends OrcaField {
                 if (enabled) {
                   setState(
                     () {
-                      ratings =
-                          math.max(0, math.min(1, details.localPosition.dx / (deco.W ?? 150)));
+                      ratings = math.max(0, math.min(1, details.localPosition.dx / (deco.W ?? 150)));
                       ratings = div > 1 ? (ratings * div).round() / div : ratings;
                       field.didChange(ratings);
                     },

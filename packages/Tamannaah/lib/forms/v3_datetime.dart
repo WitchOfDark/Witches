@@ -1,3 +1,4 @@
+import 'package:darkknight/extensions/build_context.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,11 +6,10 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
 import '../ui/mario/mario.dart';
 
-import '../tools/extensions/build_context.dart';
-import '../tools/utils.dart';
+import 'package:darkknight/utils.dart';
+
 import '../ui/d_theme.dart';
 import '../ui/decoration.dart';
-import '../ui/lego.dart';
 import '../ui/primitive.dart';
 
 import 'date_timeline.dart';
@@ -88,7 +88,7 @@ Widget v3DateTime({
           } else {
             return TextEditingValue(text: DateFormat.yMMMMEEEEd().format(value));
           }
-          return newValue;
+          // return newValue;
         })
       ],
       inputType: onlyTime == null
@@ -159,7 +159,7 @@ Widget v3DateTimeIos({
   final DateTime? initialValue,
   final bool? onlyTime,
 }) {
-  Deco d = deco ?? dIos;
+  Deco d = deco ?? dScaf0;
   return Builder(
     builder: (context) {
       return FormBuilderField<DateTime>(
@@ -189,12 +189,14 @@ Widget v3DateTimeIos({
               DateTime p = DateTime.now();
               DateTime? t = await marioSheet<DateTime>(
                 context: context,
-                deco: d.cp(H: 300),
+                deco: dScaf0.cp(H: 300, mar: e8, brR: brR_a_10),
                 children: [
-                  Expanded(
+                  Text(hint).cp(dH2),
+                  SizedBox(
+                    height: 250,
                     child: CupertinoDatePicker(
                       initialDateTime: field.value ?? initialValue,
-                      backgroundColor: d.B,
+                      backgroundColor: dScaf0.B,
                       mode: (onlyTime == false)
                           ? CupertinoDatePickerMode.date
                           : (onlyTime == true ? CupertinoDatePickerMode.time : CupertinoDatePickerMode.dateAndTime),
@@ -205,12 +207,10 @@ Widget v3DateTimeIos({
                     ),
                   ),
                 ],
-                close: txbtn(
-                  'Ok',
-                  fn: () {
-                    Navigator.pop(context, p);
-                  },
-                ),
+                onWillPop: () async {
+                  Navigator.pop(context, p);
+                  return true;
+                },
               );
 
               field.didChange(t);
@@ -235,10 +235,10 @@ Widget v3Clock<T>({
   DateTime? firstDate,
   DateTime? lastDate,
 }) {
-  Deco d = (deco ?? dIos).disable(!enabled);
+  Deco d = (deco ?? dScaf0).disable(!enabled);
   firstDate = firstDate ?? DateTime(DateTime.now().year - 1);
   lastDate = lastDate ?? DateTime.now();
-  assert(T == DateTime || T == DateTimeRange);
+  assert(T == DateTime || T == DateTimeRange || T == Duration);
   return header(
     title: tx(headText ?? '', deco: d),
     row: false,
@@ -260,13 +260,15 @@ Widget v3Clock<T>({
                     ico(Icons.timelapse, deco: d),
                     tx(
                       field.value != null
-                          ? (T == DateTime
-                              ? onlyTime == null
-                                  ? f1(cast<DateTime>(field.value)!)
-                                  : onlyTime == true
-                                      ? h1(cast<DateTime>(field.value)!)
-                                      : d0(cast<DateTime>(field.value)!)
-                              : '(${d2(cast<DateTimeRange>(field.value)!.start)})   to   (${d2(cast<DateTimeRange>(field.value)!.end)})')
+                          ? T == Duration
+                              ? r1(cast<Duration>(field.value)!, onlyTime)
+                              : ((T == DateTime
+                                  ? onlyTime == null
+                                      ? f1(cast<DateTime>(field.value)!)
+                                      : onlyTime == true
+                                          ? h1(cast<DateTime>(field.value)!)
+                                          : d0(cast<DateTime>(field.value)!)
+                                  : '(${d2(cast<DateTimeRange>(field.value)!.start)})   to   (${d2(cast<DateTimeRange>(field.value)!.end)})'))
                           : hint,
                       deco: d.disable(field.value == null).cp(fml: 1, fto: TextOverflow.ellipsis),
                     ),
@@ -285,18 +287,48 @@ Widget v3Clock<T>({
               fn: !enabled
                   ? () {}
                   : () async {
-                      if (T == DateTime) {
+                      if (T == Duration) {
+                        Duration t = const Duration();
+                        await marioSheet<Duration>(
+                          context: context,
+                          deco: dScaf0.cp(H: 300, mar: e8, brR: brR_a_10),
+                          children: [
+                            Text(hint).cp(dH2),
+                            SizedBox(
+                              height: 250,
+                              child: CupertinoTimerPicker(
+                                mode: (onlyTime == false)
+                                    ? CupertinoTimerPickerMode.ms
+                                    : (onlyTime == true ? CupertinoTimerPickerMode.hms : CupertinoTimerPickerMode.hm),
+                                initialTimerDuration: cast<Duration>(field.value ?? initialValue) ?? const Duration(),
+                                onTimerDurationChanged: (Duration newDuration) {
+                                  t = newDuration;
+                                },
+                              ),
+                            ),
+                          ],
+                          onWillPop: () async {
+                            if (t != const Duration()) {
+                              field.didChange(cast<T>(t));
+                            }
+                            return true;
+                          },
+                        );
+                      } else if (T == DateTime) {
                         DateTime p = DateTime.now();
                         DateTime? t;
                         if (Device.isIos || Device.isMac || ios) {
                           t = await marioSheet<DateTime>(
                             context: context,
-                            deco: d.cp(H: 300),
+                            deco: dScaf0.cp(H: 300, mar: e8, brR: brR_a_10),
                             children: [
-                              Expanded(
+                              Text(hint).cp(dH2),
+                              SizedBox(
+                                height: 250,
                                 child: CupertinoDatePicker(
                                   initialDateTime: cast<DateTime>(field.value ?? initialValue),
-                                  backgroundColor: d.B,
+                                  backgroundColor: dScaf0.B,
+                                  use24hFormat: false,
                                   mode: (onlyTime == false)
                                       ? CupertinoDatePickerMode.date
                                       : (onlyTime == true
@@ -311,12 +343,10 @@ Widget v3Clock<T>({
                                 ),
                               ),
                             ],
-                            close: txbtn(
-                              'Ok',
-                              fn: () {
-                                Navigator.pop(context, p);
-                              },
-                            ),
+                            onWillPop: () async {
+                              Navigator.pop(context, p);
+                              return true;
+                            },
                           );
                         } else {
                           DateTime? dd;
@@ -335,13 +365,15 @@ Widget v3Clock<T>({
                             );
                           }
                           if (onlyTime == true || onlyTime == null) {
-                            tt = await showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.fromDateTime(
-                                cast<DateTime>(field.value ?? initialValue) ?? DateTime.now(),
-                              ),
-                              initialEntryMode: TimePickerEntryMode.dial,
-                            );
+                            if (context.mounted) {
+                              tt = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay.fromDateTime(
+                                  cast<DateTime>(field.value ?? initialValue) ?? DateTime.now(),
+                                ),
+                                initialEntryMode: TimePickerEntryMode.dial,
+                              );
+                            }
                           }
                           t = (dd ?? DateTime.now()).add(Duration(hours: tt?.hour ?? 0, minutes: tt?.minute ?? 0));
                         }
@@ -379,3 +411,9 @@ String d0(DateTime d) => DateFormat('EEE, MMM d, ' 'yy').format(d);
 String d1(DateTime d) => DateFormat.yMMMMEEEEd().format(d);
 String d2(DateTime d) => DateFormat.yMd().format(d);
 String d3(DateTime d) => DateFormat.yMMMMd('en_US').format(d);
+
+String r1(Duration d, bool? onlyTime) {
+  DateTime dd = DateTime(0, 0, 0, 0, 0).add(d);
+
+  return '${onlyTime != false ? "${dd.hour}H" : ""}  ${dd.minute}M  ${onlyTime == null ? "${dd.second}S" : ""}';
+}

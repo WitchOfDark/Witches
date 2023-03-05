@@ -1,8 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:darkknight/debug_functions.dart';
+import 'package:darkknight/utils.dart';
 import 'package:flutter/material.dart';
 
 import '../forms/orca_field.dart';
-import '../tools/utils.dart';
 import 'd_theme.dart';
 import 'decoration.dart';
 
@@ -60,8 +61,8 @@ extension Kajal on Deco {
         ),
 
         isDense: true,
-        fillColor: B,
-        filled: B != null ? true : false,
+        fillColor: hB,
+        filled: true, //B != null ? true : false,
 
         //label icon + text
         //prefix as icon + label as text + hinttext
@@ -108,8 +109,8 @@ extension Kajal on Deco {
         borderRadius: brR ?? brR_no,
       ),
       isDense: true,
-      fillColor: B,
-      filled: B != null ? true : false,
+      fillColor: hB,
+      filled: true, //B != null ? true : false,
 
       //label icon + text
       //prefix as icon + label as text + hinttext
@@ -341,11 +342,19 @@ Widget box({final Widget? child, final Deco? deco}) {
   );
 }
 
-Widget tx(String s, {Deco? deco}) {
+extension Texty on Text {
+  Text cp(Deco? deco) {
+    return tx(data ?? '', deco: deco);
+  }
+}
+
+Text tx(String s, {Deco? deco}) {
+  // Deco d = deco ?? dH3;
+
   return Text(
     s,
-    style: deco?.ts(),
-    maxLines: deco?.fml,
+    style: deco?.ts(), //d.ts(),
+    maxLines: deco?.fml, //d.fml,
     semanticsLabel: s,
     textScaleFactor: 1,
   );
@@ -495,7 +504,10 @@ Widget inky({required Widget child, void Function()? onTap, void Function()? onP
   return Container(
     height: deco?.H,
     width: deco?.W,
+    // padding: deco?.pad,
     margin: deco?.mar,
+    decoration: deco?.bDeco(),
+    alignment: deco?.align,
     child: Material(
       shape: deco?.brR == brR_no
           ? CircleBorder(side: deco?.bs ?? BorderSide.none)
@@ -504,7 +516,8 @@ Widget inky({required Widget child, void Function()? onTap, void Function()? onP
               borderRadius: deco?.brR ?? brR_no,
             ),
       elevation: deco?.elv ?? 0,
-      color: deco?.B,
+      color: Colors.transparent, //deco?.B,
+      shadowColor: Colors.transparent,
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
@@ -539,13 +552,15 @@ Widget mBox({required Widget child, Deco? deco}) {
 }
 
 Widget txbtn(String name, {void Function()? fn, Deco? deco}) {
-  Deco d = deco ?? dBtn8;
+  // Deco d = deco ?? dBtn8;
 
-  return btn(
-    child: txb(name, deco: d.cp(B: Colors.transparent, bW: 0, mar: e0, align: Alignment.center)),
-    deco: d,
-    fn: fn,
-  );
+  return TextButton(onPressed: fn, child: tx(name, deco: deco));
+
+  // return btn(
+  //   child: txb(name, deco: d.cp(B: Colors.transparent, bW: 0, mar: e0, align: Alignment.center)),
+  //   deco: d,
+  //   fn: fn,
+  // );
 }
 
 Widget row(String name, IconData icon,

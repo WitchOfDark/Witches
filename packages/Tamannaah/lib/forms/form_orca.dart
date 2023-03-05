@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../tools/utils.dart';
+import 'package:darkknight/utils.dart';
+
 import '../ui/decoration.dart';
-import '../ui/lego.dart';
 import '../ui/primitive.dart';
 
 import 'orca_field.dart';
@@ -136,16 +136,16 @@ class OrcaBoolIcon extends OrcaField {
       onChanged: onChanged,
       decoration: InputDecoration.collapsed(hintText: hint),
       builder: (FormFieldState<bool> field) {
-        return Lego(
+        return icoBtn(
           deco: d,
-          name: name,
-          icon: (field.value ?? false) ? trueIcon : falseIcon,
-          fn: () {
+          label: name,
+          (field.value ?? false) ? trueIcon : falseIcon,
+          () {
             if (enabled) {
               field.didChange(!(field.value ?? false));
             }
           },
-        ).icoBtn();
+        );
       },
     );
   }
@@ -187,16 +187,16 @@ class OrcaCheckBox extends OrcaField {
       },
     );
 
-    return FormBuilderCheckbox(
-      name: name,
-      title: tx(hint, deco: deco),
-      initialValue: initialValue,
-      enabled: enabled,
-      onChanged: onChanged,
-      decoration: InputDecoration.collapsed(hintText: hint),
-      checkColor: deco.hF,
-      activeColor: deco.hS,
-    );
+    // return FormBuilderCheckbox(
+    //   name: name,
+    //   title: tx(hint, deco: deco),
+    //   initialValue: initialValue,
+    //   enabled: enabled,
+    //   onChanged: onChanged,
+    //   decoration: InputDecoration.collapsed(hintText: hint),
+    //   checkColor: deco.hF,
+    //   activeColor: deco.hS,
+    // );
   }
 }
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../tools/utils.dart';
+import 'package:darkknight/utils.dart';
+
 import '../ui/decoration.dart';
 import '../ui/primitive.dart';
 import 'orca_field.dart';
@@ -43,9 +44,7 @@ class OrcaInputChips<T extends OrcaData> extends OrcaField {
                   side: d.bs,
                   tooltip: name,
                   deleteIconColor: enabled ? d.hS : null,
-                  avatar: initialValue[index].icon != null
-                      ? ico(initialValue[index].icon, deco: d)
-                      : null,
+                  avatar: initialValue[index].icon != null ? ico(initialValue[index].icon, deco: d) : null,
                   label: tx(initialValue[index].name, deco: d),
                   onDeleted: () {
                     if (enabled) {
@@ -188,27 +187,25 @@ class OrcaChoiceChips<T extends OrcaData> extends OrcaField {
                   },
                 );
 
-                return ChoiceChip(
-                  elevation: d.elv,
-                  backgroundColor: d.hB,
-                  selectedColor: d.hB,
-                  selected: selected,
-                  side: d.bs,
-                  avatar: values[index].icon != null
-                      ? ico(values[index].icon, deco: d.cp(fs: (d.fs ?? 20) + 5))
-                      : null,
-                  label: tx(values[index].name, deco: d),
-                  onSelected: (selection) {
-                    n = values[index];
-                    if (enabled) {
-                      if (selected) {
-                        field.didChange(null);
-                      } else {
-                        field.didChange(n);
-                      }
-                    }
-                  },
-                );
+                // return ChoiceChip(
+                //   elevation: d.elv,
+                //   backgroundColor: d.hB,
+                //   selectedColor: d.hB,
+                //   selected: selected,
+                //   side: d.bs,
+                //   avatar: values[index].icon != null ? ico(values[index].icon, deco: d.cp(fs: (d.fs ?? 20) + 5)) : null,
+                //   label: tx(values[index].name, deco: d),
+                //   onSelected: (selection) {
+                //     n = values[index];
+                //     if (enabled) {
+                //       if (selected) {
+                //         field.didChange(null);
+                //       } else {
+                //         field.didChange(n);
+                //       }
+                //     }
+                //   },
+                // );
               },
             ),
           );

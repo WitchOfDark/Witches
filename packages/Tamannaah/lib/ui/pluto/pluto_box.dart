@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
-import '../../tools/debug_functions.dart';
-import '../../tools/utils.dart';
+import 'package:darkknight/utils.dart';
+import 'package:darkknight/debug_functions.dart';
 
 class GridController<T> {
   String search;
@@ -21,13 +21,10 @@ class GridController<T> {
   });
 }
 
-Widget plutoBox(
-  BuildContext context,
-  GridController con, {
-  bool showLoading = false,
-  PlutoOnSelectedEventCallback? onSelected, 
-  Map<ShortcutActivator, PlutoKeyAction>? shortcuts
-}) {
+Widget plutoBox(BuildContext context, GridController con,
+    {bool showLoading = false,
+    PlutoOnSelectedEventCallback? onSelected,
+    Map<ShortcutActivator, PlutoKeyAction>? shortcuts}) {
   return PlutoGrid(
     columns: con.columns,
     rows: con.rows,

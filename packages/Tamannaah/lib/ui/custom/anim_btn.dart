@@ -28,11 +28,6 @@ class _AnimSlideState extends State<AnimSlide> with SingleTickerProviderStateMix
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     Deco deco = (widget.deco ?? dIos);
     deco = deco.cp(
@@ -67,21 +62,21 @@ class _AnimSlideState extends State<AnimSlide> with SingleTickerProviderStateMix
                 ShimmerBox(
                   isLoading: position > deco.W! / 2,
                   child: Container(
-                    child: tx('left', deco: deco),
                     color: Colors.blue,
+                    child: tx('left', deco: deco),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
               ],
             ),
             Row(
               children: [
-                Spacer(),
+                const Spacer(),
                 ShimmerBox(
                   isLoading: position < deco.W! / 2,
                   child: Container(
-                    child: tx('left', deco: deco),
                     color: Colors.blue,
+                    child: tx('left', deco: deco),
                   ),
                 ),
               ],
@@ -119,14 +114,14 @@ class _AnimSlideState extends State<AnimSlide> with SingleTickerProviderStateMix
   }
 }
 
-class simpleLoadingBtn extends StatefulWidget {
-  const simpleLoadingBtn({super.key});
+class SimpleLoadingBtn extends StatefulWidget {
+  const SimpleLoadingBtn({super.key});
 
   @override
-  State<simpleLoadingBtn> createState() => _simpleLoadingBtnState();
+  State<SimpleLoadingBtn> createState() => _SimpleLoadingBtnState();
 }
 
-class _simpleLoadingBtnState extends State<simpleLoadingBtn> {
+class _SimpleLoadingBtnState extends State<SimpleLoadingBtn> {
   bool? isLoading;
 
   @override
@@ -138,20 +133,20 @@ class _simpleLoadingBtnState extends State<simpleLoadingBtn> {
           btn(
             deco: Deco(5, S: Colors.transparent, B: Colors.transparent),
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 200),
               height: 50,
               width: isLoading == null ? 100 : 50,
               padding: e8,
               decoration: Deco(
                 4,
-                brR: isLoading == null ? brR_a_10 : BorderRadius.all(Radius.circular(30)),
+                brR: isLoading == null ? brR_a_10 : const BorderRadius.all(Radius.circular(30)),
                 B: Colors.black,
               ).bDeco(),
               alignment: Alignment.center,
               child: isLoading == null
                   ? txb('Button', deco: Deco(2, B: Colors.transparent, fml: 1, fs: 18))
                   : (isLoading!
-                      ? Center(
+                      ? const Center(
                           child: AspectRatio(
                           aspectRatio: 1,
                           child: CircularProgressIndicator.adaptive(),
@@ -164,12 +159,12 @@ class _simpleLoadingBtnState extends State<simpleLoadingBtn> {
                   isLoading = true;
                 });
               }
-              Future.delayed(Duration(milliseconds: 2000), () {
+              Future.delayed(const Duration(milliseconds: 2000), () {
                 setState(() {
                   isLoading = false;
                 });
               });
-              Future.delayed(Duration(milliseconds: 4000), () {
+              Future.delayed(const Duration(milliseconds: 4000), () {
                 setState(() {
                   isLoading = null;
                 });

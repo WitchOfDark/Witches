@@ -1,16 +1,16 @@
 import 'dart:math' as math;
 
+import 'package:darkknight/debug_functions.dart';
+import 'package:darkknight/utils.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:tamannaah/forms/v3_grow.dart';
 import '../forms/form_grow.dart';
 import '../forms/input_formatters.dart';
 
-import '../tools/debug_functions.dart';
-import '../tools/utils.dart';
 import '../ui/decoration.dart';
 import '../ui/primitive.dart';
 import 'form_typeahead.dart';
@@ -779,7 +779,7 @@ class LionFields<T> {
                   obscure ?? '❤', //⚗,⚙❤🌦☠♨🎟☠👁🎞🎟🖼🕶🛍⛑⛸🎖🕹♟♠♣♥♦🎙🎚🎛🗝⛏⚒🛠⚙🗜🛢⚗⚖⛓🛡🗡⚔☎⚰⚱🖥🖨⌨🖱🖲📽🕯🗞🏷✉
               obscureText: obscurepassword ? true : false,
 
-              toolbarOptions: const ToolbarOptions(copy: true, cut: true, paste: true, selectAll: true),
+              // toolbarOptions: const ToolbarOptions(copy: true, cut: true, paste: true, selectAll: true),
 
               decoration: deco?.iDeco(
                     hintText: hintText,
@@ -896,7 +896,7 @@ class LionFormState extends State<LionForm> {
         // setState(() {});
 
         formKey.currentState?.fields.entries.toList().forEach((e) {
-          if (e.value.errorText != null) print(e.value.errorText);
+          if (e.value.errorText != null) lava(e.value.errorText);
         });
         if (widget.update != null) {
           widget.update!(formKey);

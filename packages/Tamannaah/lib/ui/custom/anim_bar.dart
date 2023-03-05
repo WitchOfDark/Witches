@@ -5,6 +5,8 @@ import '../primitive.dart';
 
 import '../decoration.dart';
 
+void emptyFunction(List<int> s) {}
+
 class AnimBar extends StatefulWidget {
   const AnimBar({
     super.key,
@@ -15,6 +17,7 @@ class AnimBar extends StatefulWidget {
     this.boxrow = true,
     this.showName = false,
     this.multi = false,
+    this.onChanged = emptyFunction,
   });
 
   final List<Lego> legos;
@@ -24,6 +27,7 @@ class AnimBar extends StatefulWidget {
   final Deco? boxdeco;
   final bool showName;
   final bool multi;
+  final void Function(List<int> selectedIndex) onChanged;
 
   @override
   State<AnimBar> createState() => _AnimBarState();
@@ -39,43 +43,45 @@ class _AnimBarState extends State<AnimBar> {
       color: widget.boxdeco?.B,
       padding: widget.boxdeco?.pad,
       margin: widget.boxdeco?.mar,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      // child: Row(
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   children: [
+      //     SizedBox(
+      width: widget.boxdeco?.W,
+      height: widget.boxdeco?.H,
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          SizedBox(
-            width: widget.boxdeco?.W,
-            height: widget.boxdeco?.H,
-            child: Stack(
-              children: [
-                if (widget.showName)
-                  AnimatedAlign(
-                    alignment: Alignment(range, 0),
-                    duration: const Duration(milliseconds: 300),
-                    child: box(
-                      deco: widget.deco?.cp(
-                        W: (widget.deco?.W ?? 100),
-                        H: widget.deco?.H ?? 64,
-                        B: widget.boxdeco?.hS,
-                        // brR: brRadius(
-                        //   selectedIndex[0],
-                        //   widget.deco?.brR,
-                        //   true,
-                        //   widget.legos.length,
-                        // ),
-                      ),
-                    ),
-                  ),
-                RowCol(
-                  children: list(),
-                  row: widget.boxrow,
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          if (widget.showName)
+            AnimatedAlign(
+              alignment: widget.boxrow ? Alignment(range, 0) : Alignment(0, range),
+              curve: Curves.ease,
+              duration: const Duration(milliseconds: 200),
+              child: box(
+                deco: widget.deco?.cp(
+                  W: (widget.deco?.W ?? 100),
+                  H: widget.deco?.H ?? 64,
+                  B: widget.boxdeco?.hS,
+                  // brR: brRadius(
+                  //   selectedIndex[0],
+                  //   widget.deco?.brR,
+                  //   true,
+                  //   widget.legos.length,
+                  // ),
                 ),
-              ],
+              ),
             ),
+          RowCol(
+            children: list(),
+            row: widget.boxrow,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),
         ],
       ),
+      //     ),
+      //   ],
+      // ),
     );
   }
 
@@ -97,6 +103,7 @@ class _AnimBarState extends State<AnimBar> {
               }
               setState(() {});
               (e.value.fn ?? () {})();
+              widget.onChanged(selectedIndex);
             },
             child: TweenAnimationBuilder<double>(
               tween: Tween<double>(
@@ -109,7 +116,9 @@ class _AnimBarState extends State<AnimBar> {
                 width: (widget.showName ? 1 : value) * ((widget.deco?.W ?? 100) - 40) + 40,
                 height: widget.deco?.H ?? 64,
                 decoration: BoxDecoration(
-                  color: lerp([widget.deco?.hS ?? const Color.fromARGB(72, 255, 255, 255), e.value.deco.hB], value),
+                  color: lerp(
+                      [widget.deco?.hS ?? const Color.fromARGB(72, 255, 255, 255), (e.value.deco?.hB ?? Colors.orange)],
+                      value),
                   borderRadius: widget.deco?.brR,
                   // border: Border.all(width: 1, color: Colors.red),
                 ),
@@ -118,14 +127,15 @@ class _AnimBarState extends State<AnimBar> {
                 child: RowCol(
                   row: widget.row, //widget.width == null,
                   children: [
-                    Icon(
-                      e.value.icon,
-                      color: (selectedIndex.contains(e.key)) ? e.value.deco.hB : widget.deco?.hF,
-                      size: (widget.deco?.fs ?? 15) + 5,
-                    ),
+                    if (e.value.icon != null)
+                      Icon(
+                        e.value.icon,
+                        color: (selectedIndex.contains(e.key)) ? e.value.deco?.hB : widget.deco?.hF,
+                        size: (widget.deco?.fs ?? 15) + 5,
+                      ),
                     if (selectedIndex.contains(e.key) || widget.showName)
                       SizedBox(width: 8 /*4 + 4 * value*/, height: 4 /*2 + 2 * value*/),
-                    if (selectedIndex.contains(e.key) || widget.showName)
+                    if (selectedIndex.contains(e.key) || widget.showName && e.value.name != null)
                       // Container(
                       // decoration: BoxDecoration(border: Border.all()),
                       // child:
@@ -137,9 +147,9 @@ class _AnimBarState extends State<AnimBar> {
                             fml: 1,
                             fw: FontWeight.w600,
                             fto: TextOverflow.clip,
-                            F: (selectedIndex.contains(e.key)) ? e.value.deco.hF : widget.deco?.hF,
+                            F: (selectedIndex.contains(e.key)) ? e.value.deco?.hF : widget.deco?.hF,
                           ),
-                          (selectedIndex.contains(e.key) || widget.showName) ? e.value.name : '',
+                          (selectedIndex.contains(e.key) || widget.showName) ? e.value.name! : '',
                         ),
                       ),
                     // ),
