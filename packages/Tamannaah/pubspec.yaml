@@ -15,8 +15,14 @@ dependencies:
 
   intl: ^0.17.0
 
+  # darkknight:
+  #   path: ../DarkKnight
+
   darkknight:
-    path: ../DarkKnight
+    git:
+      url: https://github.com/WitchOfDark/Witches.git
+      ref: main
+      path: packages/DarkKnight/
 
   go_router: ^6.0.3
 
