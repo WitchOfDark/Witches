@@ -167,23 +167,23 @@ class Deco {
   }) {
     assert((accent < Grain.maxAccent && accent >= 0) && ((inv ?? 0) < Grain.maxAccent && (inv ?? 0) >= 0));
 
-    int _ltrb = ltrb;
+    int lltrb = ltrb;
     if (brR != null) {
-      _ltrb = _ltrb == 1111 ? 1111 : 0000;
+      lltrb = lltrb == 1111 ? 1111 : 0000;
     }
 
     if (bW != 0) {
       bs = BorderSide(width: bW, color: bC ?? S ?? gS);
 
-      assert(_ltrb < 1112 && _ltrb > -1);
-      _ltrb = 10000 + _ltrb;
-      bool b = (_ltrb % 10) == 0 ? false : true;
-      _ltrb = ltrb ~/ 10;
-      bool r = (_ltrb % 10) == 0 ? false : true;
-      _ltrb = _ltrb ~/ 10;
-      bool t = (_ltrb % 10) == 0 ? false : true;
-      _ltrb = _ltrb ~/ 10;
-      bool l = (_ltrb % 10) == 0 ? false : true;
+      assert(lltrb < 1112 && lltrb > -1);
+      lltrb = 10000 + lltrb;
+      bool b = (lltrb % 10) == 0 ? false : true;
+      lltrb = ltrb ~/ 10;
+      bool r = (lltrb % 10) == 0 ? false : true;
+      lltrb = lltrb ~/ 10;
+      bool t = (lltrb % 10) == 0 ? false : true;
+      lltrb = lltrb ~/ 10;
+      bool l = (lltrb % 10) == 0 ? false : true;
 
       br = Border(
         left: l ? bs : BorderSide.none,
@@ -299,7 +299,7 @@ class Deco {
   }) {
     final add = Deco(
       accent ?? this.accent,
-      inv: alt ?? this.inv,
+      inv: alt ?? inv,
 
       //Dimensions
       W: W ?? this.W,

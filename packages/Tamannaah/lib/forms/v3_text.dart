@@ -164,7 +164,7 @@ Widget v3TextField<T>({
                   obscuringCharacter: (obscure == null || obscure == '') ? '•' : obscure, //✂⚗⚙❤☠♨⛑⛸♟♠♣♦⛏⚒⚖⛓⚔☎⚰⚱⌨✉
                   obscureText: (obscure != null && state.obscure) ? true : false,
 
-                  toolbarOptions: const ToolbarOptions(copy: true, cut: true, paste: true, selectAll: true),
+                  // toolbarOptions: const ToolbarOptions(copy: true, cut: true, paste: true, selectAll: true),
 
                   textAlign: textCenter ? TextAlign.center : TextAlign.start,
                   // selectionControls: MaterialTextSelectionControls(),

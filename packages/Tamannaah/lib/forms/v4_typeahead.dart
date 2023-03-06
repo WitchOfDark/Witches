@@ -354,7 +354,7 @@ class V4TypeAhead<T> extends FormBuilderField<T> {
           focusNode: focusNode,
           builder: (FormFieldState<T?> field) {
             final state = field as V4TypeAheadState<T>;
-            final theme = Theme.of(state.context);
+            // final theme = Theme.of(state.context);
 
             Deco d = deco ?? dTxf6;
 
@@ -419,7 +419,6 @@ class V4TypeAhead<T> extends FormBuilderField<T> {
                     cursorWidth: 1,
                     textAlign: textCenter ? TextAlign.center : TextAlign.start,
                   ),
-                  // TODO HACK to satisfy strictness
                   suggestionsCallback: (value) async {
                     return (await suggestionsCallback.call(value, field, state.typeAheadController));
                   },

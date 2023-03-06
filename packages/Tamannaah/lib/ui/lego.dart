@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'primitive.dart' as prim;
 
-import 'd_theme.dart';
 import 'decoration.dart';
 
 class Lego {

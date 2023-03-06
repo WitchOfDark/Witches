@@ -1,9 +1,7 @@
 name: tamannaah
 description: Tamannaah
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/WitchOfDark/Witches/tree/main/packages/Tamannaah
-
-publish_to: none
 
 environment:
   sdk: ">=2.19.0 <3.0.0"
@@ -11,6 +9,8 @@ environment:
 
 dependencies:
   flutter:
+    sdk: flutter
+  flutter_web_plugins:
     sdk: flutter
 
   intl: ^0.17.0
@@ -35,6 +35,11 @@ dependencies:
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5
   bloc: ^8.1.1
+  provider: ^6.0.5
+  http: ^0.13.5
+  stack_trace: ^1.11.0
+  rxdart: ^0.27.7
+  crypto: ^3.0.2
 
   ######
   pluto_grid: ^5.4.9

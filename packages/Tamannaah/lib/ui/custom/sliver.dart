@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(VegSliver());
+void main() => runApp(const VegSliver());
 
 class VegSliver extends StatelessWidget {
+  const VegSliver({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -10,14 +12,16 @@ class VegSliver extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: CurryFormScreen(),
+      home: const CurryFormScreen(),
     );
   }
 }
 
 class CurryFormScreen extends StatefulWidget {
+  const CurryFormScreen({super.key});
+
   @override
-  _CurryFormScreenState createState() => _CurryFormScreenState();
+  State<CurryFormScreen> createState() => _CurryFormScreenState();
 }
 
 class _CurryFormScreenState extends State<CurryFormScreen> {
@@ -41,7 +45,7 @@ class _CurryFormScreenState extends State<CurryFormScreen> {
 
   Widget _buildNameField() {
     return TextFormField(
-      decoration: InputDecoration(labelText: 'Name'),
+      decoration: const InputDecoration(labelText: 'Name'),
       validator: (String? value) {
         if (value?.isEmpty ?? false) {
           return 'Name is required';
@@ -63,7 +67,7 @@ class _CurryFormScreenState extends State<CurryFormScreen> {
       child: Center(
         child: Text(
           text,
-          style: TextStyle(color: Colors.white, fontSize: 48),
+          style: const TextStyle(color: Colors.white, fontSize: 48),
         ),
       ),
     );
@@ -79,14 +83,12 @@ class _CurryFormScreenState extends State<CurryFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(_nameList.toString());
-
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
           //
           SliverAppBar(
-            title: Text('Cheetah Coding'),
+            title: const Text('Cheetah Coding'),
             pinned: true,
             expandedHeight: 200,
             leading: Image.network(
@@ -103,8 +105,8 @@ class _CurryFormScreenState extends State<CurryFormScreen> {
           ),
 
           //
-          CurrySliverHeader(Colors.green, "Sticky Header 1"),
-          CurrySliverHeader(Colors.red, "Sticky Header 2"),
+          const CurrySliverHeader(Colors.green, "Sticky Header 1"),
+          const CurrySliverHeader(Colors.red, "Sticky Header 2"),
 
           //
           SliverFixedExtentList(
@@ -124,18 +126,18 @@ class _CurryFormScreenState extends State<CurryFormScreen> {
           SliverList(
             delegate: SliverChildListDelegate([
               Container(
-                margin: EdgeInsets.all(24),
+                margin: const EdgeInsets.all(24),
                 child: Form(
                   key: _formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text('Add Name', style: TextStyle(fontSize: 22)),
+                      const Text('Add Name', style: TextStyle(fontSize: 22)),
                       _buildNameField(),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       ElevatedButton(
-                        child: Text('Submit'),
                         onPressed: _submit,
+                        child: const Text('Submit'),
                       ),
                     ],
                   ),
@@ -146,17 +148,17 @@ class _CurryFormScreenState extends State<CurryFormScreen> {
 
           //
           SliverGrid(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3, mainAxisSpacing: 8, crossAxisSpacing: 8),
             delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
               return Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 color: Colors.deepPurple,
                 child: Center(
                   child: Text(
                     _nameList[index],
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: const TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
               );
@@ -174,7 +176,7 @@ class CurrySliverHeader extends StatelessWidget {
   final Color backgroundColor;
   final String headerTitle;
 
-  CurrySliverHeader(this.backgroundColor, this.headerTitle);
+  const CurrySliverHeader(this.backgroundColor, this.headerTitle, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +201,7 @@ class Delegate extends SliverPersistentHeaderDelegate {
       child: Center(
         child: Text(
           headerTitle,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 36,
           ),

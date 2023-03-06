@@ -83,7 +83,7 @@ class _ColorEditorState extends State<ColorEditor> {
             my[ci] = h;
             setDummy(my);
 
-            print('Randomize');
+            // print('Randomize');
 
             setState(() {
               add = !add;

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 import 'package:tamannaah/darkknight/utils.dart';
@@ -38,10 +37,10 @@ Widget plutoBox(BuildContext context, GridController con,
       con.stateManager?.setShowLoading(showLoading);
     },
     configuration: PlutoGridConfiguration(
-      scrollbar: PlutoGridScrollbarConfig(
+      scrollbar: const PlutoGridScrollbarConfig(
         isAlwaysShown: true,
       ),
-      style: PlutoGridStyleConfig(
+      style: const PlutoGridStyleConfig(
         oddRowColor: Color.fromARGB(255, 236, 236, 236),
         evenRowColor: Color.fromARGB(255, 246, 246, 246),
       ),
@@ -113,7 +112,6 @@ class PlutoKeyAction extends PlutoGridShortcutAction {
     required PlutoKeyManagerEvent keyEvent,
     required PlutoGridStateManager stateManager,
   }) {
-    print('Pressed enter key. $keyEvent');
     fn(keyEvent, stateManager);
   }
 }

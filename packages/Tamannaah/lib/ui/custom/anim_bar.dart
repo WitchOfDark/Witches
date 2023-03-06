@@ -71,7 +71,7 @@ class _AnimBarState extends State<AnimBar> {
                 ),
               ),
             ),
-          RowCol(
+          rowCol(
             children: list(),
             row: widget.boxrow,
             mainAxisSize: MainAxisSize.max,
@@ -124,7 +124,7 @@ class _AnimBarState extends State<AnimBar> {
                 ),
                 padding: widget.deco?.pad,
                 margin: widget.deco?.mar,
-                child: RowCol(
+                child: rowCol(
                   row: widget.row, //widget.width == null,
                   children: [
                     if (e.value.icon != null)
@@ -134,7 +134,7 @@ class _AnimBarState extends State<AnimBar> {
                         size: (widget.deco?.fs ?? 15) + 5,
                       ),
                     if (selectedIndex.contains(e.key) || widget.showName)
-                      SizedBox(width: 8 /*4 + 4 * value*/, height: 4 /*2 + 2 * value*/),
+                      const SizedBox(width: 8 /*4 + 4 * value*/, height: 4 /*2 + 2 * value*/),
                     if (selectedIndex.contains(e.key) || widget.showName && e.value.name != null)
                       // Container(
                       // decoration: BoxDecoration(border: Border.all()),

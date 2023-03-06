@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:tamannaah/darkknight/debug_functions.dart';
 import 'package:tamannaah/darkknight/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -35,12 +34,16 @@ extension Kajal on Deco {
     if (bevel) {
       return InputDecoration(
         border: UnderlineInputBorder(
-          borderSide: bs ?? const BorderSide(width: 1, color: Color.fromARGB(255, 103, 122, 246)), //BorderSide.none,
+          borderSide: bs.copyWith(
+              color: Colors
+                  .blue), // ?? const BorderSide(width: 1, color: Color.fromARGB(255, 103, 122, 246)), //BorderSide.none,
           borderRadius: brR ?? brR_no,
         ),
         // enabledBorder: InputBorder.none,
         enabledBorder: UnderlineInputBorder(
-          borderSide: bs ?? const BorderSide(width: 1, color: Color.fromARGB(255, 221, 221, 221)), //BorderSide.none,
+          borderSide: bs.copyWith(
+              color: Colors
+                  .purple), // ?? const BorderSide(width: 1, color: Color.fromARGB(255, 221, 221, 221)), //BorderSide.none,
           borderRadius: brR ?? brR_no,
         ),
         disabledBorder: UnderlineInputBorder(
@@ -56,7 +59,8 @@ extension Kajal on Deco {
           borderRadius: brR ?? brR_no,
         ),
         focusedBorder: UnderlineInputBorder(
-          borderSide: bs ?? BorderSide(width: 1, color: S ?? const Color.fromARGB(255, 167, 167, 167)),
+          borderSide: bs.copyWith(
+              color: Colors.orange), // ?? BorderSide(width: 1, color: S ?? const Color.fromARGB(255, 167, 167, 167)),
           borderRadius: brR ?? brR_no,
         ),
 
@@ -84,12 +88,16 @@ extension Kajal on Deco {
     }
     return InputDecoration /*collapsed*/ (
       border: OutlineInputBorder(
-        borderSide: bs ?? const BorderSide(width: 1, color: Color.fromARGB(255, 103, 122, 246)), //BorderSide.none,
+        borderSide: bs.copyWith(
+            color: Colors
+                .blue), // ?? const BorderSide(width: 1, color: Color.fromARGB(255, 103, 122, 246)), //BorderSide.none,
         borderRadius: brR ?? brR_no,
       ),
       // enabledBorder: InputBorder.none,
       enabledBorder: OutlineInputBorder(
-        borderSide: bs ?? const BorderSide(width: 1, color: Color.fromARGB(255, 221, 221, 221)), //BorderSide.none,
+        borderSide: bs.copyWith(
+            color: Colors
+                .purple), // ?? const BorderSide(width: 1, color: Color.fromARGB(255, 221, 221, 221)), //BorderSide.none,
         borderRadius: brR ?? brR_no,
       ),
       disabledBorder: OutlineInputBorder(
@@ -105,7 +113,8 @@ extension Kajal on Deco {
         borderRadius: brR ?? brR_no,
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: bs ?? BorderSide(width: 1, color: S ?? const Color.fromARGB(255, 167, 167, 167)),
+        borderSide: bs.copyWith(
+            color: Colors.orange), // ?? BorderSide(width: 1, color: S ?? const Color.fromARGB(255, 167, 167, 167)),
         borderRadius: brR ?? brR_no,
       ),
       isDense: true,
@@ -364,7 +373,7 @@ Widget txb(String s, {Deco? deco}) {
   return box(child: tx(s, deco: deco), deco: deco);
 }
 
-Widget RowCol({
+Widget rowCol({
   required final List<Widget> children,
   required final bool row,
   final MainAxisSize mainAxisSize = MainAxisSize.min,

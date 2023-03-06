@@ -16,8 +16,7 @@ dependencies:
   firebase_core: ^2.1.1
   firebase_app_check: ^0.1.1+6
 
-  tamannaah:
-    path: ../Tamannaah
+  tamannaah: ^0.0.3
 
 dev_dependencies:
   flutter_test:

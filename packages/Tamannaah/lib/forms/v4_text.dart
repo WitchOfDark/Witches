@@ -81,7 +81,7 @@ class V4Text<T> extends FormBuilderField<T> {
           focusNode: focusNode,
           builder: (FormFieldState<T?> field) {
             final state = field as V4TextState<T>;
-            final theme = Theme.of(state.context);
+            // final theme = Theme.of(state.context);
 
             Deco d = deco ?? dTxf6;
             return Container(
