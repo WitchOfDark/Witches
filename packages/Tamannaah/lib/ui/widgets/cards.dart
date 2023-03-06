@@ -134,24 +134,26 @@ class SafeScuffy extends StatelessWidget {
           : null,
       body: SafeArea(
         child: portrait
-            ? body
-            // Column(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       Expanded(
-            //         child: Center(
-            //           child: SingleChildScrollView(
-            //             child: body,
-            //           ),
-            //         ),
-            //       ),
-            //       // if (btnInfos != null && !context.keyboardVisible)
-            //       //   AnimBar(
-            //       //     deco: dIos.cp(W: null),
-            //       //     legos: btnInfos!,
-            //       //   ),
-            //     ],
-            //   )
+            ?
+            // body
+            Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Expanded(
+                  // child: Center(
+                  // child: SingleChildScrollView(
+                  // child:
+                  body,
+                  // ),
+                  // ),
+                  // ),
+                  // if (btnInfos != null && !context.keyboardVisible)
+                  //   AnimBar(
+                  //     deco: dIos.cp(W: null),
+                  //     legos: btnInfos!,
+                  //   ),
+                ],
+              )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,7 +177,7 @@ class SafeScuffy extends StatelessWidget {
                 ],
               ),
       ),
-      bottomNavigationBar: portrait
+      bottomNavigationBar: (portrait && btnInfos != null)
           ? AnimBar(
               deco: dIos.cp(W: null),
               legos: btnInfos!,

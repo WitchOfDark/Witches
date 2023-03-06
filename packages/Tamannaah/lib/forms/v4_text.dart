@@ -251,6 +251,7 @@ class V4TextState<T> extends FormBuilderFieldState<V4Text<T>, T> {
   @override
   void initState() {
     super.initState();
+    dino('Controller Initiated');
     controller = widget.controller ?? TextEditingController(text: initialValue?.toString() ?? '');
     obscure = widget.obscure != null;
     // controller.addListener(_handleControllerChanged);
@@ -268,9 +269,10 @@ class V4TextState<T> extends FormBuilderFieldState<V4Text<T>, T> {
 
   @override
   void dispose() {
-    lava('Controller Disposed');
+    lava('Controller Disposed ${controller.text}');
     // Dispose the controller when initState created it
     controller.dispose();
+
     super.dispose();
   }
 

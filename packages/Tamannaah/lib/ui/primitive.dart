@@ -35,15 +35,18 @@ extension Kajal on Deco {
       return InputDecoration(
         border: UnderlineInputBorder(
           borderSide: bs.copyWith(
-              color: Colors
-                  .blue), // ?? const BorderSide(width: 1, color: Color.fromARGB(255, 103, 122, 246)), //BorderSide.none,
+            color: Colors.blue,
+            // ?? const BorderSide(width: 1, color: Color.fromARGB(255, 103, 122, 246)), //BorderSide.none,
+          ),
           borderRadius: brR ?? brR_no,
         ),
         // enabledBorder: InputBorder.none,
         enabledBorder: UnderlineInputBorder(
           borderSide: bs.copyWith(
-              color: Colors
-                  .purple), // ?? const BorderSide(width: 1, color: Color.fromARGB(255, 221, 221, 221)), //BorderSide.none,
+            // color: Colors.purple,
+            color: hF,
+            // ?? const BorderSide(width: 1, color: Color.fromARGB(255, 221, 221, 221)), //BorderSide.none,
+          ),
           borderRadius: brR ?? brR_no,
         ),
         disabledBorder: UnderlineInputBorder(
@@ -60,7 +63,10 @@ extension Kajal on Deco {
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: bs.copyWith(
-              color: Colors.orange), // ?? BorderSide(width: 1, color: S ?? const Color.fromARGB(255, 167, 167, 167)),
+            // color: Colors.orange,
+            color: hS,
+            // ?? BorderSide(width: 1, color: S ?? const Color.fromARGB(255, 167, 167, 167)),
+          ),
           borderRadius: brR ?? brR_no,
         ),
 
@@ -89,15 +95,18 @@ extension Kajal on Deco {
     return InputDecoration /*collapsed*/ (
       border: OutlineInputBorder(
         borderSide: bs.copyWith(
-            color: Colors
-                .blue), // ?? const BorderSide(width: 1, color: Color.fromARGB(255, 103, 122, 246)), //BorderSide.none,
+          color: Colors.blue,
+          // ?? const BorderSide(width: 1, color: Color.fromARGB(255, 103, 122, 246)), //BorderSide.none,
+        ),
         borderRadius: brR ?? brR_no,
       ),
       // enabledBorder: InputBorder.none,
       enabledBorder: OutlineInputBorder(
         borderSide: bs.copyWith(
-            color: Colors
-                .purple), // ?? const BorderSide(width: 1, color: Color.fromARGB(255, 221, 221, 221)), //BorderSide.none,
+          // color: Colors.purple,
+          color: hF,
+          // ?? const BorderSide(width: 1, color: Color.fromARGB(255, 221, 221, 221)), //BorderSide.none,
+        ),
         borderRadius: brR ?? brR_no,
       ),
       disabledBorder: OutlineInputBorder(
@@ -114,7 +123,10 @@ extension Kajal on Deco {
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: bs.copyWith(
-            color: Colors.orange), // ?? BorderSide(width: 1, color: S ?? const Color.fromARGB(255, 167, 167, 167)),
+          // color: Colors.orange,
+          color: hS,
+          // ?? BorderSide(width: 1, color: S ?? const Color.fromARGB(255, 167, 167, 167)),
+        ),
         borderRadius: brR ?? brR_no,
       ),
       isDense: true,

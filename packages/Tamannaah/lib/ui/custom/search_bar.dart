@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../forms/v4_text.dart';
+import '../../forms/v6_text.dart';
 import 'package:tamannaah/darkknight/debug_functions.dart';
 
 import '../../ui/d_theme.dart';
@@ -214,7 +214,7 @@ class _SearchAnimateState extends State<SearchAnimate> with SingleTickerProvider
             ),
             SizedBox(
               width: anim.value * 150,
-              child: V4Text(
+              child: V6Text(
                 name: 'name',
                 hint: 'hint',
                 deco: dError.cp(fs: 20),

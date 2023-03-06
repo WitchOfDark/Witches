@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:tamannaah/forms/form_lion.dart';
-import 'package:tamannaah/forms/v4_text.dart';
+import 'package:tamannaah/forms/v6_text.dart';
 import 'package:tamannaah/router/router.dart';
 import 'package:tamannaah/ui/d_theme.dart';
 import 'package:tamannaah/ui/decoration.dart';
@@ -61,6 +61,13 @@ class _LoginPageState extends State<LoginPage> {
               child: box(
                 deco: Deco(
                   0,
+                  sdw: const [
+                    BoxShadow(
+                      offset: Offset(0, 5),
+                      blurRadius: 25,
+                      color: Colors.purple,
+                    ),
+                  ],
                   W: context.widthPx > 450 ? 450 : context.widthPx * 0.9,
                   brR: brR_a_10,
                   pad: e8, /*sdw: sdw1*/
@@ -81,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                         formKey: formKey,
                         child: Column(
                           children: [
-                            V4Text(
+                            V6Text(
                               name: 'username',
                               hint: '_User Name',
                               prefix: const Icon(Icons.account_circle),
@@ -90,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                               },
                             ),
                             const SizedBox(height: 14),
-                            V4Text(
+                            V6Text(
                               name: 'password',
                               hint: '_Password',
                               prefix: const Icon(Icons.spa),

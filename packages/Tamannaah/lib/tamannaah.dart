@@ -174,8 +174,6 @@ class Tamannaah extends StatelessWidget {
 
     assert(blocService.isNotEmpty);
 
-    MyScrollBehavior? myScrollBehaviour = !Device.isMobile ? MyScrollBehavior() : null;
-
     return MultiBlocProvider(
       providers: blocService.map((e) => e.blocProvider()).toList(),
       // blocService.fold(
@@ -236,7 +234,7 @@ class Tamannaah extends StatelessWidget {
                   ),
                 ),
 
-                scrollBehavior: myScrollBehaviour,
+                scrollBehavior: Device.isWeb ? null : (Device.isWindows ? MyScrollBehavior() : null),
 
                 //Go_router
                 routeInformationParser: globalRouter.routeInformationParser,
