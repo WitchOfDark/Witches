@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:tamannaah/darkknight/debug_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth, GoogleAuthProvider, UserCredential;
 

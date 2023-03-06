@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_storage/firebase_storage.dart';
@@ -73,14 +75,14 @@ class FireStore {
       switch (taskSnapshot.state) {
         case TaskState.running:
           final progress = 100.0 * (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes);
-          print("Upload is $progress% complete.");
+          owl("Upload is $progress% complete.");
           work(progress);
           break;
         case TaskState.paused:
-          print("Upload is paused.");
+          owl("Upload is paused.");
           break;
         case TaskState.canceled:
-          print("Upload was canceled");
+          owl("Upload was canceled");
           break;
         case TaskState.error:
           // Handle unsuccessful uploads

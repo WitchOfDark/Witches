@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:tamannaah/darkknight/debug_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -160,6 +162,7 @@ List<HivePage> hiveViewerInit(List<HivePage> hivePage) {
                 value: 2,
                 child: const Text("Toggle theme"),
                 onTap: () {
+                  // ignore: unused_local_variable
                   Settings settings = toHive((bloc.state as SSettingsLoaded).settings);
                   // bloc.add(
                   //   ESettingsUpdate(

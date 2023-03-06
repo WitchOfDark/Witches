@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
+import 'package:tamannaah/darkknight/debug_functions.dart';
 
 import 'package:tamannaah/darkknight/error/fire_error.dart';
 
@@ -18,7 +19,7 @@ class FireEmailProvider extends FireProvider {
           email: email,
           password: password,
         );
-        print(userCredential.credential.toString());
+        owl(userCredential.credential.toString());
 
         return FirebaseAuth.instance.currentUser != null ? null : fireAuthErrorMap['unknown-auth'];
       },
@@ -36,7 +37,7 @@ class FireEmailProvider extends FireProvider {
           email: email,
           password: password,
         );
-        print(userCredential.credential.toString());
+        owl(userCredential.credential.toString());
 
         return FirebaseAuth.instance.currentUser != null ? null : fireAuthErrorMap['unknown-auth'];
       },
