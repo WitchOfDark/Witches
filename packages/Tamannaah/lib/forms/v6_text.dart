@@ -183,7 +183,7 @@ class _V6TextState<T> extends State<V6Text<T>> {
                   lava('on Field Submitted');
                 },
                 onSaved: (newValue) {
-                  lava('Field saved');
+                  // lava('Field saved');
                 },
                 // validator: (value) {
                 //   final val = cast<T>(valueTransformer<T>(valTransformer ?? ((v) => cast<T>(v)), mask)(

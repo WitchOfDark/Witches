@@ -57,6 +57,10 @@ class V4Grow extends FormBuilderField<List<Map<String, dynamic>>> {
           builder: (FormFieldState<List<Map<String, dynamic>>?> field) {
             final state = field as V4GrowState;
 
+            // lava(state.growController.keys.length);
+            // unicorn(state.growController.toString());
+            // dino(field.value?.length);
+            // owl(field.value);
             assert(state.growController.keys.length == field.value?.length);
             return box(
               deco: deco?.cp(W: deco.W ?? 300, H: deco.H ?? 300),
@@ -202,14 +206,74 @@ class V4GrowState extends FormBuilderFieldState<V4Grow, List<Map<String, dynamic
   @override
   void didChange(List<Map<String, dynamic>>? value) {
     super.didChange(value);
+    // lava('-----------------------');
+    // dino({'didChange': value});
 
-    if (value != null) {
+    if (value == null || value.isEmpty) {
+      growController.keys = [];
+      return;
+    }
+
+    // owl('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    if (growController.keys.length == value.length) {
       for (int ii = 0; ii < value.length; ii++) {
         if (growController.keys[ii].value() != value[ii]) {
+          // unicorn(ii);
+          // dino(growController.keys[ii].value());
+          // owl(value[ii]);
+          // owl('Grow 1');
           growController.keys[ii].patch(value[ii]);
         }
       }
     }
+
+    if (growController.keys.length > value.length) {
+      for (int ii = 0; ii < growController.keys.length; ii++) {
+        // dino(ii);
+        if (ii >= value.length) {
+          // final revList = growController.keys.reversed.toList();
+          // revList.removeAt(ii);
+          // growController.keys = revList;
+          growController.keys.removeAt(ii);
+          // lava(growController.keys);
+        } else {
+          // dino(growController.keys[ii].value());
+          // owl(value[ii]);
+          // unicorn(growController.keys[ii].value() != value[ii]);
+          if (growController.keys[ii].value() != value[ii]) {
+            // owl('Grow 2');
+            growController.keys[ii].patch(value[ii]);
+          }
+          // lava('$ii ${growController.keys.length} : ${value.length}');
+        }
+      }
+    }
+    // dino('*****************************');
+
+    if (growController.keys.length < value.length) {
+      for (int ii = 0; ii < value.length; ii++) {
+        // unicorn(ii);
+        if (ii >= growController.keys.length) {
+          growController.keys.add(LionFormKey());
+        } else {
+          // dino(growController.keys[ii].value());
+          // owl(value[ii]);
+          // unicorn(growController.keys[ii].value() != value[ii]);
+
+          if (growController.keys[ii].value() != value[ii]) {
+            // owl('Grow 3');
+            growController.keys[ii].patch(value[ii]);
+          }
+          // unicorn('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+          // lava('$ii ${growController.keys.length} : ${value.length}');
+          // dino('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        }
+      }
+    }
+
+    // dino('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    // lava('${growController.keys.length} : ${value.length}');
+    // dino('+++++++++++++++++++++++++++++++++');
   }
 
   @override

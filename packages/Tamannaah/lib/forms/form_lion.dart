@@ -896,7 +896,7 @@ class LionFormState extends State<LionForm> {
         // setState(() {});
 
         formKey.currentState?.fields.entries.toList().forEach((e) {
-          if (e.value.errorText != null) lava(e.value.errorText);
+          // if (e.value.errorText != null) lava(e.value.errorText);
         });
         if (widget.update != null) {
           widget.update!(formKey);

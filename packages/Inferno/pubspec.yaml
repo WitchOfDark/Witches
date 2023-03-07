@@ -21,7 +21,7 @@ dependencies:
   bloc: ^8.1.0
   equatable: ^2.0.5
 
-  tamannaah: ^0.0.31
+  tamannaah: ^0.0.32
   # tamannaah:
   #   path: ../Tamannaah
 

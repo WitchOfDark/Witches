@@ -30,6 +30,18 @@ class GrowController {
     keys = newKeys;
     return this;
   }
+
+  @override
+  String toString() {
+    return keys
+        .map(
+          (e) => {
+            e.toString(): e.value(),
+          },
+        )
+        .toList()
+        .toString();
+  }
 }
 
 Widget v3Grow({
